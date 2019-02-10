@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import {HomePageComponent} from './pages/home-page/home-page.component';
 import {AppRoutingModule} from './app-routing.module';
 import { LogListComponent } from './pages/log-list/log-list.component';
+import {JumbotronComponent} from './modules/jumbotron/jumbotron.component';
 
 
 
@@ -12,12 +13,12 @@ import { LogListComponent } from './pages/log-list/log-list.component';
   declarations: [
     AppComponent,
     HomePageComponent,
-    LogListComponent
+    LogListComponent,
+    JumbotronComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
