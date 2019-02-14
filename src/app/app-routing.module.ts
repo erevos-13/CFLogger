@@ -3,9 +3,10 @@ import {CommonModule} from '@angular/common';
 import {Routes, RouterModule} from '@angular/router';
 import {HomePageComponent} from './pages/home-page/home-page.component';
 import {LogListComponent} from './pages/log-list/log-list.component';
+import {LoginPageComponent} from './pages/login-page/login-page.component';
 
 const routes: Routes = [
-  {path: '', component: HomePageComponent},
+  {path: '', component: LoginPageComponent},
   {path: 'log-list', component: LogListComponent},
   {path: 'home', component: HomePageComponent}
 ];
