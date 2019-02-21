@@ -10,10 +10,10 @@ export class UserApi {
   ) { }
 
 
-  public async authUser(userAuth: IuserAuth): Promise<any> {
-  return await this.httpApi.post(`${environment.URL_DEV}/api/Users/login`,
-    userAuth
-    ).toPromise().catch((error) =>  reject(error));
+  public  authUser(userAuth: IuserAuth): Promise<any> {
+    return this.httpApi.post(`${environment.URL_DEV}/api/Users/login`,
+      userAuth
+    ).toPromise();
   }
 
 } // END CLASS

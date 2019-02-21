@@ -14,7 +14,13 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {UsersService} from './servrices/users.service';
-import {UserApi} from './restApi/user-api';
+import {RestApiModule} from './RestApi/restApi.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatDialogModule , MAT_DIALOG_DATA} from '@angular/material';
+import {PopUpComponent} from './modules/pop-up/pop-up.component';
+
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -26,13 +32,18 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomePageComponent,
     LogListComponent,
     JumbotronComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    PopUpComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
+    RestApiModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -43,8 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
-    UsersService,
-    UserApi
+    UsersService
   ],
   bootstrap: [AppComponent]
 })

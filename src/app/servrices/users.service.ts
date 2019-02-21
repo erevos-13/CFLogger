@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import {IuserAuth, UserApi} from '../restApi/user-api';
-import {stringDistance} from 'codelyzer/util/utils';
-import {p} from '@angular/core/src/render3';
+import {IuserAuth, UserApi} from '../RestApi/user-api';
+
 
 @Injectable({
   providedIn: 'root'
