@@ -1,5 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-
+import {NgbDropdownConfig, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {PopUpComponent} from "../../modules/pop-up/pop-up.component";
+import {Router, Routes} from "@angular/router";
+import {TranslateService} from "@ngx-translate/core";
+import {LogOutComponent} from "../../modules/log-out/log-out.component";
+import {UsersService} from "../../servrices/users.service";
 
 
 @Component({
@@ -11,20 +16,31 @@ export class HomePageComponent implements OnInit {
 
   private infoUser: IinfoUser;
 
-  constructor() {
+  constructor(
+    private config: NgbDropdownConfig,
+    private modalService: NgbModal,
+    private router: Router,
+    private translateSrv: TranslateService,
+    private userSrv: UsersService
+  ) {
+    config.placement = "bottom-right";
+    config.autoClose = false;
   }
 
   ngOnInit() {
 
-    // HINT: dummy data.
-    this.infoUser = {
-      name: 'orfeas',
-      surname: 'Voutsaridis',
-      level: 1,
-      box: 'Fight Box'
-    };
+    //get user profile
+    this.userSrv.
 
   }
+
+
+  private onLogout() {
+    const modalRef = this.modalService.open(LogOutComponent);
+    modalRef.componentInstance.name = this.translateSrv.instant('LOGOUT_MESSAGE');
+    modalRef.componentInstance.title = this.translateSrv.instant('LOGOUT_TITLE');
+  }
+
 
 } // END CLASS
 

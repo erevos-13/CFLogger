@@ -1,3 +1,7 @@
 {
-  "LOGIN_TITLE": "Crossfit Logger"
+  "LOGIN_TITLE": "Crossfit Logger",
+  "LOGOUT": "Logout",
+  "CANCEL": "Cancel",
+  "LOGOUT_MESSAGE": "Do you wand to logout?",
+  "LOGOUT_TITLE": "LOGOUT"
 }

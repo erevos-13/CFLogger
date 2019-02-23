@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UsersService} from '../../servrices/users.service';
 import {FormBuilder, FormGroup,  Validators} from '@angular/forms';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
-import {PopUpComponent} from '../../modules/pop-up/pop-up.component';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {PopUpComponent} from "../../modules/pop-up/pop-up.component";
 
 
 @Component({
@@ -15,12 +15,13 @@ export class LoginPageComponent implements OnInit {
 
   protected loginInForm: FormGroup;
   private userLogin: ILoginUser;
+  private rememberPassword:boolean = false;
 
   constructor(
     private router: Router,
     private userSrv: UsersService,
     private formBuilder: FormBuilder,
-    public dialog: MatDialog
+    private modalService: NgbModal
 
   ) {
   }
@@ -29,7 +30,8 @@ export class LoginPageComponent implements OnInit {
     this.initUser();
     this.loginInForm = this.formBuilder.group({
       username: [this.userLogin.username, Validators.required],
-      password: [this.userLogin.password, Validators.required]
+      password: [this.userLogin.password, Validators.required],
+      rememberPassword : [this.userLogin.rememberPassword]
     });
   }
 
@@ -37,7 +39,8 @@ export class LoginPageComponent implements OnInit {
   private initUser() {
     this.userLogin = {
       password: null,
-      username: null
+      username: null,
+      rememberPassword:false
     }
   }
 
@@ -48,7 +51,8 @@ export class LoginPageComponent implements OnInit {
     if(this.loginInForm.invalid) {
       return;
     }
-    this.userSrv.userAuth(this.userLogin.username, this.userLogin.password)
+    localStorage.setItem( 'rememberPassword', this.loginInForm.value.rememberPassword.toString());
+    this.userSrv.userAuth(this.loginInForm.value.username, this.loginInForm.value.password)
       .then((res) => {
         this.router.navigate(['/home']).catch((error) => {
           console.log(error);
@@ -56,11 +60,9 @@ export class LoginPageComponent implements OnInit {
       }).catch((err) => {
         // TODO: make a modal info.
       console.log(err);
-      this.dialog.open(PopUpComponent,{
-        data:{
-          animal: 'panta'
-        }
-      });
+      const modalRef = this.modalService.open(PopUpComponent);
+      modalRef.componentInstance.name = "Something when wrong in the login. ";
+      modalRef.componentInstance.title = "ERROR";
       this.router.navigate(['']).catch((err) => {
         console.log(err)});
     });
@@ -73,4 +75,5 @@ export class LoginPageComponent implements OnInit {
 export interface ILoginUser {
   username: string;
   password: string;
+  rememberPassword: boolean;
 }

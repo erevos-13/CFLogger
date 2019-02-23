@@ -1,8 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import { MAT_DIALOG_DATA} from '@angular/material';
-export interface DialogData {
-  animal: 'panda' | 'unicorn' | 'lion';
-}
+import {Component, Input, OnInit} from '@angular/core';
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+
 
 
 @Component({
@@ -11,11 +9,17 @@ export interface DialogData {
   styleUrls: ['./pop-up.component.css']
 })
 export class PopUpComponent implements OnInit {
+  @Input() name;
+  @Input() title;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(public activeModal: NgbActiveModal) {}
 
 
   ngOnInit() {
+
+    const element =  document.querySelector('.modal-content');
+    element.classList.add('animated', 'bounceIn');
+
   }
 
 
