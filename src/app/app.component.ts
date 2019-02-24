@@ -20,7 +20,7 @@ export class AppComponent {
     this.initSrv.init()
       .then(() => {
         console.log('app component');
-        this.router.navigate(['/home']).catch((error) => {
+        this.router.navigate(['/home/log-list']).catch((error) => {
           console.log(error)
         })
       })

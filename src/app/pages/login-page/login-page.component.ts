@@ -58,7 +58,7 @@ export class LoginPageComponent implements OnInit {
     this.storage.set(StorageValues.REMEMBER_PASSWORD,this.loginInForm.value.rememberPassword);
     this.userSrv.userAuth(this.loginInForm.value.username, this.loginInForm.value.password)
       .then((res) => {
-        this.router.navigate(['/home']).catch((error) => {
+        this.router.navigate(['/home/log-list']).catch((error) => {
           console.log(error);
         });
       }).catch((err) => {

@@ -6,6 +6,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {LogOutComponent} from "../../modules/log-out/log-out.component";
 import {UsersService} from "../../servrices/users.service";
 import {UserDTO} from "../../RestApi/user-api";
+import * as _ from 'lodash';
 
 
 @Component({
@@ -15,7 +16,7 @@ import {UserDTO} from "../../RestApi/user-api";
 })
 export class HomePageComponent implements OnInit {
 
-  private infoUser: IinfoUser;
+  private infoUser: UserDTO;
 
   constructor(
     private config: NgbDropdownConfig,
@@ -34,6 +35,10 @@ export class HomePageComponent implements OnInit {
     this.userSrv.getUserProfile().subscribe(
       (user: UserDTO) => {
         console.log(user);
+        if(!_.isNil(user)) {
+          this.infoUser = user;
+          return;
+        }
       }, error => {
         console.log(error);
       }
@@ -51,9 +56,3 @@ export class HomePageComponent implements OnInit {
 
 } // END CLASS
 
-export interface IinfoUser {
-  name: string;
-  surname: string;
-  level: number;
-  box: string;
-}

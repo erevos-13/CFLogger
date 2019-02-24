@@ -4,8 +4,7 @@ import {Settings} from "./settings";
 import UserValues = Settings.UserValues;
 import {Observable, Subscription} from "rxjs";
 import StorageValues = Settings.StorageValues;
-import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
-
+import {SESSION_STORAGE, StorageService} from 'ngx-webstorage-service';
 
 
 @Injectable({
@@ -16,7 +15,8 @@ export class UsersService {
   constructor(
     private userApi: UserApi,
     @Inject(SESSION_STORAGE) private storageSrv: StorageService
-  ) {}
+  ) {
+  }
 
   public userAuth(username: string, password: string): Promise<ILoginRes> {
     return new Promise((resolve, reject) => {
@@ -30,7 +30,7 @@ export class UsersService {
           UserValues.ACCESS_TOKEN = auth.id;
           UserValues.USER_ID = auth.userId;
           this.storageSrv.set(StorageValues.ACCESS_TOKEN, auth.id);
-          this.storageSrv.set(StorageValues.USER_ID,auth.userId);
+          this.storageSrv.set(StorageValues.USER_ID, auth.userId);
           resolve(auth);
         })
         .catch((error) => {
@@ -44,12 +44,12 @@ export class UsersService {
   public logoutUser(): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      const input: ILogout ={
+      const input: ILogout = {
         access_token: this.storageSrv.get(StorageValues.ACCESS_TOKEN)
       };
 
       this.userApi.logoutUser(input)
-        .then((logOut) =>{
+        .then((logOut) => {
           console.log(logOut);
           this.storageSrv.remove(StorageValues.ACCESS_TOKEN);
           resolve();
@@ -65,12 +65,20 @@ export class UsersService {
 
   public getUserProfile(): Observable<UserDTO> {
     return Observable.create(observer => {
+      if (UserValues.ACCESS_TOKEN && UserValues.USER_ID) {
+        const sub: Subscription = this.userApi.getUserProfile(UserValues.USER_ID, UserValues.ACCESS_TOKEN).subscribe(
+          (user_: UserDTO) => {
+            sub.unsubscribe();
+            console.log(user_);
+            observer.next(user_);
+          }, error => {
+            sub.unsubscribe();
+            observer.error(error);
+          });
+        return;
+      }
 
-      const sub: Subscription = this.userApi.getUserProfile(UserValues.USER_ID,UserValues.ACCESS_TOKEN).subscribe(
-        (user_: UserDTO) => {
-          sub.unsubscribe();
-          console.log(user_);
-        });
+      observer.error(null);
 
     });
   }

@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Routes, RouterModule} from '@angular/router';
 import {HomePageComponent} from './pages/home-page/home-page.component';
-import {LogListComponent} from './pages/log-list/log-list.component';
+import {LogListComponent} from './pages/home-page/log-list/log-list.component';
 import {LoginPageComponent} from './pages/login-page/login-page.component';
 import {ListPageComponent} from "./pages/home-page/list-page/list-page.component";
 import {AppComponent} from "./app.component";
@@ -13,7 +13,8 @@ const routes: Routes = [
   {path: 'log-list', component: LogListComponent},
   {
     path: 'home', component: HomePageComponent, children:[
-      {path: 'list', component: ListPageComponent}
+      {path: 'list', component: ListPageComponent},
+      {path: 'log-list', component: LogListComponent}
     ]
   }
 ];

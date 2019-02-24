@@ -3,5 +3,7 @@
   "LOGOUT": "Logout",
   "CANCEL": "Cancel",
   "LOGOUT_MESSAGE": "Do you wand to logout?",
-  "LOGOUT_TITLE": "LOGOUT"
+  "LOGOUT_TITLE": "LOGOUT",
+  "JUMBOTRON_TITLE": "This the place where you compete with your self.",
+  "JUMBOTRON_NAME":"Crossfit Logger"
 }
