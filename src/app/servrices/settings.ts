@@ -6,4 +6,10 @@ export namespace Settings{
   }
 
 
+  export namespace StorageValues{
+    export const ACCESS_TOKEN: string = "access_token";
+    export const REMEMBER_PASSWORD: string = 'remember_password';
+    export const USER_ID: string = 'userId';
+  }
+
 }

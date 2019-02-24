@@ -24,6 +24,11 @@ import {MatDialogModule, MAT_DIALOG_DATA} from '@angular/material';
 import {PopUpComponent} from './modules/pop-up/pop-up.component';
 import {ListPageComponent} from './pages/home-page/list-page/list-page.component';
 import {LogOutComponent} from "./modules/log-out/log-out.component";
+import {InitService} from "./servrices/init.service";
+import { StorageServiceModule } from 'ngx-webstorage-service';
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+
+
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -51,6 +56,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    StorageServiceModule,
+    LoggerModule.forRoot({serverLoggingUrl: '/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -62,7 +69,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     UsersService,
-    NgbDropdownConfig
+    NgbDropdownConfig,
+    InitService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

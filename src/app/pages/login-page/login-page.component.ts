@@ -1,9 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UsersService} from '../../servrices/users.service';
 import {FormBuilder, FormGroup,  Validators} from '@angular/forms';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {PopUpComponent} from "../../modules/pop-up/pop-up.component";
+import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
+import {Settings} from "../../servrices/settings";
+import StorageValues = Settings.StorageValues;
 
 
 @Component({
@@ -21,7 +24,8 @@ export class LoginPageComponent implements OnInit {
     private router: Router,
     private userSrv: UsersService,
     private formBuilder: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    @Inject(SESSION_STORAGE)private storage: StorageService
 
   ) {
   }
@@ -51,7 +55,7 @@ export class LoginPageComponent implements OnInit {
     if(this.loginInForm.invalid) {
       return;
     }
-    localStorage.setItem( 'rememberPassword', this.loginInForm.value.rememberPassword.toString());
+    this.storage.set(StorageValues.REMEMBER_PASSWORD,this.loginInForm.value.rememberPassword);
     this.userSrv.userAuth(this.loginInForm.value.username, this.loginInForm.value.password)
       .then((res) => {
         this.router.navigate(['/home']).catch((error) => {
@@ -63,8 +67,7 @@ export class LoginPageComponent implements OnInit {
       const modalRef = this.modalService.open(PopUpComponent);
       modalRef.componentInstance.name = "Something when wrong in the login. ";
       modalRef.componentInstance.title = "ERROR";
-      this.router.navigate(['']).catch((err) => {
-        console.log(err)});
+
     });
 
 

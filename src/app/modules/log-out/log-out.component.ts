@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {UsersService} from "../../servrices/users.service";
 import {TranslateService} from "@ngx-translate/core";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-log-out',
@@ -14,7 +15,8 @@ export class LogOutComponent implements OnInit {
   @Input() title;
   constructor(public activeModal: NgbActiveModal,
               private userSrv:UsersService,
-              private translate: TranslateService
+              private translate: TranslateService,
+              private routers: Router
   ) { }
 
   ngOnInit() {
@@ -26,8 +28,12 @@ export class LogOutComponent implements OnInit {
   private onLogout() {
     this.activeModal.dismiss();
     this.userSrv.logoutUser()
-      .then()
-      .catch()
+      .then(() => {
+        this.routers.navigate(['/login']).catch();
+      })
+      .catch(() => {
+        this.routers.navigate(['/login']).catch();
+      })
   }
 
 }

@@ -5,9 +5,10 @@ import {HomePageComponent} from './pages/home-page/home-page.component';
 import {LogListComponent} from './pages/log-list/log-list.component';
 import {LoginPageComponent} from './pages/login-page/login-page.component';
 import {ListPageComponent} from "./pages/home-page/list-page/list-page.component";
+import {AppComponent} from "./app.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'login',pathMatch:'full'},
+  {path: '',  redirectTo: '/home', pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent},
   {path: 'log-list', component: LogListComponent},
   {
