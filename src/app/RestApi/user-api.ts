@@ -1,8 +1,6 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Injectable} from '@angular/core';
-import {reject} from 'q';
-import {a} from "@angular/core/src/render3";
 import {Observable} from "rxjs";
 @Injectable()
 export class UserApi {
@@ -25,8 +23,12 @@ export class UserApi {
   }
 
 
-  public getUserProfile() : Observable<any> {
-    return this.httpApi.get(`${environment.URL_DEV}/`);
+  public getUserProfile(userId:string,accessToken: string) : Observable<any> {
+    const params = new HttpParams().set('access_token',accessToken)
+      .set('userId', userId);
+    return this.httpApi.get(`${environment.URL_DEV}/api/Users/getUserProfile`,
+      {params}
+      );
   }
 
 } // END CLASS
@@ -48,4 +50,26 @@ export interface ILoginRes {
   id: string;
   ttl: number;
   userId:string;
+}
+
+
+export interface UserDTO {
+  "realm": string;
+  "username": string;
+  "email": string;
+  "emailVerified": boolean;
+  "id": string;
+  "metadata": MetadataDTO[];
+
+}
+
+export interface MetadataDTO {
+
+  "itemId": string;
+  "metadata": IMetadata;
+}
+
+export interface IMetadata {
+  value: string;
+  key:string;
 }

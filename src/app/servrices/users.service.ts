@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {ILoginRes, ILogout, IuserAuth, UserApi} from '../RestApi/user-api';
+import {ILoginRes, ILogout, IuserAuth, UserApi, UserDTO} from '../RestApi/user-api';
 import {Settings} from "./settings";
 import UserValues = Settings.UserValues;
+import {Observable, Subscription} from "rxjs";
 
 
 @Injectable({
@@ -51,8 +52,16 @@ export class UsersService {
   }
 
 
-  public getUserProfile() {
+  public getUserProfile(): Observable<UserDTO> {
+    return Observable.create(observer => {
 
+      const sub: Subscription = this.userApi.getUserProfile(UserValues.USER_ID,UserValues.ACCESS_TOKEN).subscribe(
+        (user_: UserDTO) => {
+          sub.unsubscribe();
+          console.log(user_);
+        });
+
+    });
   }
 
 

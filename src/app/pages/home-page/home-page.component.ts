@@ -5,6 +5,7 @@ import {Router, Routes} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
 import {LogOutComponent} from "../../modules/log-out/log-out.component";
 import {UsersService} from "../../servrices/users.service";
+import {UserDTO} from "../../RestApi/user-api";
 
 
 @Component({
@@ -30,7 +31,13 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
 
     //get user profile
-    this.userSrv.
+    this.userSrv.getUserProfile().subscribe(
+      (user: UserDTO) => {
+        console.log(user);
+      }, error => {
+        console.log(error);
+      }
+    )
 
   }
 
