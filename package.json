@@ -27,6 +27,7 @@
     "@ngx-pwa/local-storage": "^7.4.1",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
+    "angular-6-social-login": "^1.1.1",
     "animate.css": "^3.7.0",
     "bootstrap": "^4.2.1",
     "core-js": "^2.5.4",

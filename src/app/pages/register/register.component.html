@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+
+    <div class="register-container col-12 col-sm-12 col-md-6 col-lg-6">
+      <form class="row align-items-center justify-content-start" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        </div>
+        <div class="form-group  col-12 col-sm-12 col-md-12 col-lg-12">
+          <label>User name:</label>
+          <input type="password" class="form-control" formControlName="username" placeholder="Password">
+        </div>
+        <div class="form-group  col-12 col-sm-12 col-md-12 col-lg-12">
+          <label>Last name</label>
+          <input type="password" class="form-control" formControlName="lastName" placeholder="Password">
+        </div>
+        <div class="form-group  col-12 col-sm-12 col-md-12 col-lg-12">
+          <label>First Name:</label>
+          <input type="password" class="form-control" formControlName="firstName" placeholder="Password">
+        </div>
+        <div class="form-group  col-12 col-sm-12 col-md-12 col-lg-12">
+          <label>Box:</label>
+          <input type="text" class="form-control" formControlName="box" placeholder="Box">
+        </div>
+        <div class="form-group  col-12 col-sm-12 col-md-12 col-lg-12">
+          <label>Password:</label>
+          <input type="password" class="form-control" formControlName="password" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary" >Submit</button>
+      </form>
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-first">
+      <h1>Put img</h1>
+    </div>
+
+  </div>
+
+</div>

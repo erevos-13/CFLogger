@@ -6,6 +6,7 @@ import {LogListComponent} from './pages/home-page/log-list/log-list.component';
 import {LoginPageComponent} from './pages/login-page/login-page.component';
 import {ListPageComponent} from "./pages/home-page/list-page/list-page.component";
 import {AppComponent} from "./app.component";
+import {RegisterComponent} from "./pages/register/register.component";
 
 const routes: Routes = [
   {path: '',  redirectTo: '/home', pathMatch: 'full'},
@@ -16,7 +17,9 @@ const routes: Routes = [
       {path: 'list', component: ListPageComponent},
       {path: 'log-list', component: LogListComponent}
     ]
-  }
+  },
+  {path: 'register', redirectTo:'/register', pathMatch: 'full'},
+  {path: 'register', component: RegisterComponent}
 ];
 
 

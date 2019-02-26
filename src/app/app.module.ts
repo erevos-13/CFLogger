@@ -27,12 +27,24 @@ import {LogOutComponent} from "./modules/log-out/log-out.component";
 import {InitService} from "./servrices/init.service";
 import { StorageServiceModule } from 'ngx-webstorage-service';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
-
+import { SocialLoginModule,  AuthServiceConfig,  GoogleLoginProvider,  FacebookLoginProvider} from "angular-6-social-login";
+import { RegisterComponent } from './pages/register/register.component'
 
 
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
+}
+
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+    [
+      {
+        id: FacebookLoginProvider.PROVIDER_ID,
+        provider: new FacebookLoginProvider("815039622175637")
+      }
+    ]);
+  return config;
 }
 
 
@@ -45,9 +57,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginPageComponent,
     PopUpComponent,
     ListPageComponent,
-    LogOutComponent
+    LogOutComponent,
+    RegisterComponent
   ],
   imports: [
+    SocialLoginModule,
     BrowserModule,
     AppRoutingModule,
     NgbModule,
@@ -70,7 +84,11 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     UsersService,
     NgbDropdownConfig,
-    InitService
+    InitService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [

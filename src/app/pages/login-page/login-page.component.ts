@@ -7,6 +7,7 @@ import {PopUpComponent} from "../../modules/pop-up/pop-up.component";
 import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
 import {Settings} from "../../servrices/settings";
 import StorageValues = Settings.StorageValues;
+import {AuthService, FacebookLoginProvider, GoogleLoginProvider} from "angular-6-social-login";
 
 
 @Component({
@@ -25,6 +26,7 @@ export class LoginPageComponent implements OnInit {
     private userSrv: UsersService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
+    private socialAuthService: AuthService,
     @Inject(SESSION_STORAGE)private storage: StorageService
 
   ) {
@@ -39,6 +41,24 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
+  private socialSignIn(socialPlatform : string) {
+    let socialPlatformProvider;
+    if(socialPlatform == "facebook"){
+      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+    }else{
+      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    }
+
+    this.socialAuthService.signIn(socialPlatformProvider).then(
+      (userData) => {
+        console.log(socialPlatform+" sign in data : " , userData);
+        // Now sign-in with userData
+        // ...
+
+      }
+    );
+
+  }
 
   private initUser() {
     this.userLogin = {
@@ -69,7 +89,6 @@ export class LoginPageComponent implements OnInit {
       modalRef.componentInstance.title = "ERROR";
 
     });
-
 
   }
 
