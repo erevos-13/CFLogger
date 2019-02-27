@@ -31,6 +31,10 @@ export class UserApi {
       );
   }
 
+  public addMetadata(input: IMetadataAdd) {
+    return this.httpApi.post(`${environment.URL_DEV}/api/metadata`,input).toPromise();
+  }
+
 } // END CLASS
 
 
@@ -67,9 +71,17 @@ export interface MetadataDTO {
 
   "itemId": string;
   "metadata": IMetadata;
+
 }
 
 export interface IMetadata {
   value: string;
   key:string;
+}
+
+export interface IMetadataAdd {
+  itemId: string;
+  metadatatypeId: number;
+  metadata: IMetadata[];
+  id?: string;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
+import {UsersService} from "../../servrices/users.service";
 
 
 @Component({
@@ -16,7 +17,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private afAuth: AngularFireAuth,
-     private formBuilder: FormBuilder
+     private formBuilder: FormBuilder,
+    private userSrv: UsersService
   ) { }
 
   ngOnInit() {
@@ -55,6 +57,13 @@ export class RegisterComponent implements OnInit {
     this.afAuth.auth.createUserAndRetrieveDataWithEmailAndPassword(this.registerForm.value.email,this.registerForm.value.password)
       .then((user) => {
         console.log(user);
+        this.userSrv.addUserMetadata(user.user.uid,1)
+          .then((metadata) => {
+            console.log(metadata);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
 
       })
       .catch((error) =>{

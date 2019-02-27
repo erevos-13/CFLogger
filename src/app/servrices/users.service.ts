@@ -1,10 +1,11 @@
 import {Inject, Injectable} from '@angular/core';
-import {ILoginRes, ILogout, IuserAuth, UserApi, UserDTO} from '../RestApi/user-api';
+import {ILoginRes, ILogout, IMetadataAdd, IuserAuth, MetadataDTO, UserApi, UserDTO} from '../RestApi/user-api';
 import {Settings} from "./settings";
 import UserValues = Settings.UserValues;
 import {Observable, Subscription} from "rxjs";
 import StorageValues = Settings.StorageValues;
 import {SESSION_STORAGE, StorageService} from 'ngx-webstorage-service';
+import {User} from "firebase";
 
 
 @Injectable({
@@ -81,6 +82,32 @@ export class UsersService {
       observer.error(null);
 
     });
+  }
+
+
+  public addUserMetadata(itemId: string, typeOfMetadata:number): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      const input_: IMetadataAdd = {
+        itemId:itemId,
+        metadatatypeId: typeOfMetadata,
+        metadata: [
+          {
+            key: 'personal_last_name',
+            value: 'test'
+          }
+        ]
+      };
+      this.userApi.addMetadata(input_)
+        .then((metadata) => {
+          resolve(metadata);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+
+    });
+
   }
 
 
