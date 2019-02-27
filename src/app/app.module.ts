@@ -29,7 +29,10 @@ import { StorageServiceModule } from 'ngx-webstorage-service';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { SocialLoginModule,  AuthServiceConfig,  GoogleLoginProvider,  FacebookLoginProvider} from "angular-6-social-login";
 import { RegisterComponent } from './pages/register/register.component'
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -71,6 +74,10 @@ export function getAuthServiceConfigs() {
     BrowserAnimationsModule,
     MatDialogModule,
     StorageServiceModule,
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+    AngularFireStorageModule,// imports firebase/storage only needed for storage features
+    AngularFireModule.initializeApp(environment.firebase,'FcLogger'),
     LoggerModule.forRoot({serverLoggingUrl: '/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR}),
     TranslateModule.forRoot({
       loader: {

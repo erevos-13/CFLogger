@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
+
 
 @Component({
   selector: 'app-register',
@@ -9,10 +12,12 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
-  formBuilder: FormBuilder;
   registerUser:IRegister;
 
-  constructor() { }
+  constructor(
+    private afAuth: AngularFireAuth,
+     private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit() {
     this.initUser();
@@ -44,6 +49,17 @@ export class RegisterComponent implements OnInit {
 
 
   onRegister() {
+    if(this.registerForm.invalid) {
+      return;
+    }
+    this.afAuth.auth.createUserAndRetrieveDataWithEmailAndPassword(this.registerForm.value.email,this.registerForm.value.password)
+      .then((user) => {
+        console.log(user);
+
+      })
+      .catch((error) =>{
+        console.log(error);
+      })
 
   }
 

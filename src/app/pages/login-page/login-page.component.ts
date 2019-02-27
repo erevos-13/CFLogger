@@ -8,6 +8,8 @@ import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
 import {Settings} from "../../servrices/settings";
 import StorageValues = Settings.StorageValues;
 import {AuthService, FacebookLoginProvider, GoogleLoginProvider} from "angular-6-social-login";
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
 
 
 @Component({
@@ -27,7 +29,8 @@ export class LoginPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private socialAuthService: AuthService,
-    @Inject(SESSION_STORAGE)private storage: StorageService
+    @Inject(SESSION_STORAGE)private storage: StorageService,
+    private afAuth: AngularFireAuth
 
   ) {
   }
@@ -76,20 +79,17 @@ export class LoginPageComponent implements OnInit {
       return;
     }
     this.storage.set(StorageValues.REMEMBER_PASSWORD,this.loginInForm.value.rememberPassword);
-    this.userSrv.userAuth(this.loginInForm.value.username, this.loginInForm.value.password)
-      .then((res) => {
-        this.router.navigate(['/home/log-list']).catch((error) => {
-          console.log(error);
-        });
-      }).catch((err) => {
-        // TODO: make a modal info.
-      console.log(err);
-      const modalRef = this.modalService.open(PopUpComponent);
-      modalRef.componentInstance.name = "Something when wrong in the login. ";
-      modalRef.componentInstance.title = "ERROR";
-
-    });
-
+    this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(this.loginInForm.value.username,this.loginInForm.value.password)
+      .then((auth) => {
+        console.log(auth);
+        this.router.navigate(['/home/log-list']).catch(() => {});
+      })
+      .catch((error) => {
+        const modalRef = this.modalService.open(PopUpComponent);
+        modalRef.componentInstance.name = "Something when wrong in the login. ";
+        modalRef.componentInstance.title = "ERROR";
+        console.log(error);
+      })
   }
 
 } // END CLASS
