@@ -6,10 +6,8 @@ import * as _ from 'lodash';
 import UserValues = Settings.UserValues;
 import {AngularFireAuth} from "@angular/fire/auth";
 import {NGXLogger} from "ngx-logger";
-import {tokenReference} from "@angular/compiler";
 import {UsersService} from "./users.service";
-import {auth} from 'firebase/app';
-import {a} from "@angular/core/src/render3";
+
 
 
 @Injectable({
@@ -35,9 +33,11 @@ export class InitService {
         if(auth.refreshToken === accessToken) {
           resolve();
         }else {
+          this.storage.clear();
           reject();
         }
       },err => {
+        this.storage.clear();
         reject();
       })
 

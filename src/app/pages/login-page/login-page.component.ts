@@ -61,17 +61,10 @@ export class LoginPageComponent implements OnInit {
     this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(this.loginInForm.value.username, this.loginInForm.value.password)
       .then((auth: auth.UserCredential) => {
         this.logger.log(auth.user.refreshToken);
-        this.afAuth.auth.currentUser.getIdToken(true)
-          .then((data) =>{
-            this.logger.log(data);
-            const token = data;//jwt_decode(data);
-            this.storage.set(StorageValues.ACCESS_TOKEN,auth.user.refreshToken);
-            this.router.navigate(['/home/log-list']).catch(() => {
-            });
-          })
-          .catch((err) => {
-            this.logger.log(err);
-          })
+        this.storage.set(StorageValues.ACCESS_TOKEN,auth.user.refreshToken);
+        this.router.navigate(['/home/log-list']).catch(() => {
+        });
+
 
       })
       .catch((error) => {
