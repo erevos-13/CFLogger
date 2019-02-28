@@ -11,7 +11,7 @@ import {AuthService, FacebookLoginProvider, GoogleLoginProvider} from "angular-6
 import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase/app';
 import {NGXLogger} from "ngx-logger";
-
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-login-page',
@@ -29,7 +29,6 @@ export class LoginPageComponent implements OnInit {
     private userSrv: UsersService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
-    private socialAuthService: AuthService,
     @Inject(SESSION_STORAGE) private storage: StorageService,
     private afAuth: AngularFireAuth,
     private logger: NGXLogger
@@ -43,25 +42,6 @@ export class LoginPageComponent implements OnInit {
       password: [this.userLogin.password, Validators.required],
       rememberPassword: [this.userLogin.rememberPassword]
     });
-  }
-
-  private socialSignIn(socialPlatform: string) {
-    let socialPlatformProvider;
-    if (socialPlatform == "facebook") {
-      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-    } else {
-      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-    }
-
-    this.socialAuthService.signIn(socialPlatformProvider).then(
-      (userData) => {
-        console.log(socialPlatform + " sign in data : ", userData);
-        // Now sign-in with userData
-        // ...
-
-      }
-    );
-
   }
 
   private initUser() {
@@ -80,9 +60,19 @@ export class LoginPageComponent implements OnInit {
     this.storage.set(StorageValues.REMEMBER_PASSWORD, this.loginInForm.value.rememberPassword);
     this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(this.loginInForm.value.username, this.loginInForm.value.password)
       .then((auth: auth.UserCredential) => {
-        this.logger.log(auth.user);
-        this.router.navigate(['/home/log-list']).catch(() => {
-        });
+        this.logger.log(auth.user.refreshToken);
+        this.afAuth.auth.currentUser.getIdToken(true)
+          .then((data) =>{
+            this.logger.log(data);
+            const token = data;//jwt_decode(data);
+            this.storage.set(StorageValues.ACCESS_TOKEN,auth.user.refreshToken);
+            this.router.navigate(['/home/log-list']).catch(() => {
+            });
+          })
+          .catch((err) => {
+            this.logger.log(err);
+          })
+
       })
       .catch((error) => {
         const modalRef = this.modalService.open(PopUpComponent);

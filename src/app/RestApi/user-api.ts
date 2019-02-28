@@ -1,4 +1,4 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
@@ -31,8 +31,18 @@ export class UserApi {
       );
   }
 
-  public addMetadata(input: IMetadataAdd) {
-    return this.httpApi.post(`${environment.URL_DEV}/api/metadata`,input).toPromise();
+  public addMetadata(input: IMetadataAdd): Observable<any> {
+    return this.httpApi.post(`${environment.URL_DEV}/api/metadata`,input);
+  }
+
+  public authToken_(token_:string): Observable<any>{
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.set('token',token_);
+    headers = headers.set('returnSecureToken', 'true');
+    headers = headers.set('Content-Type','application/json');
+
+    const params = new HttpParams().set('key',environment.firebase.apiKey);
+    return this.httpApi.post(`https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken`,null,{headers:headers,params:params});
   }
 
 } // END CLASS

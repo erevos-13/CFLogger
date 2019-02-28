@@ -6,6 +6,7 @@ import {Observable, Subscription} from "rxjs";
 import StorageValues = Settings.StorageValues;
 import {SESSION_STORAGE, StorageService} from 'ngx-webstorage-service';
 import {User} from "firebase";
+import {NGXLogger} from "ngx-logger";
 
 
 @Injectable({
@@ -15,6 +16,7 @@ export class UsersService {
 
   constructor(
     private userApi: UserApi,
+    private logger: NGXLogger,
     @Inject(SESSION_STORAGE) private storageSrv: StorageService
   ) {
   }
@@ -98,17 +100,29 @@ export class UsersService {
           }
         ]
       };
-      this.userApi.addMetadata(input_)
-        .then((metadata) => {
-          resolve(metadata);
-        })
-        .catch((error) => {
-          reject(error);
-        });
+      this.userApi.addMetadata(input_).subscribe(
+        (metadata) => {
+          this.logger.log(metadata);
+        }
+      )
 
     });
 
   }
 
+
+  public authWithToken(token: string): Observable<any> {
+    return Observable.create(observer => {
+      this.userApi.authToken_(token).subscribe(
+        (result) => {
+          this.logger.log(result);
+          observer.next(result);
+        },error => {
+          this.logger.log(error);
+          observer.error(error);
+        }
+      );
+    });
+  }
 
 } // END CLASS

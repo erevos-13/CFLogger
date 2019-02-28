@@ -4,6 +4,13 @@ import StorageValues = Settings.StorageValues;
 import { LOCAL_STORAGE,SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
 import * as _ from 'lodash';
 import UserValues = Settings.UserValues;
+import {AngularFireAuth} from "@angular/fire/auth";
+import {NGXLogger} from "ngx-logger";
+import {tokenReference} from "@angular/compiler";
+import {UsersService} from "./users.service";
+import {auth} from 'firebase/app';
+import {a} from "@angular/core/src/render3";
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +19,10 @@ export class InitService {
 
   constructor(
     // private storageSrv: StorageService
-    @Inject(LOCAL_STORAGE) private storage: StorageService
+    @Inject(LOCAL_STORAGE) private storage: StorageService,
+    private afAuth: AngularFireAuth,
+    private logger: NGXLogger,
+    private userSrv:UsersService
   ) { }
 
   public init(): Promise<any> {
@@ -20,23 +30,16 @@ export class InitService {
       const accessToken: string = this.storage.get(StorageValues.ACCESS_TOKEN);
       const userId: string= this.storage.get(StorageValues.USER_ID);
       const rememberPassword: string = this.storage.get(StorageValues.REMEMBER_PASSWORD);
-      if(rememberPassword){
-        if(!_.isNil(accessToken) && !_.isNil(userId)) {
-          console.log({userSrvAccess: accessToken});
-          UserValues.ACCESS_TOKEN = this.storage.get(StorageValues.ACCESS_TOKEN);
-          UserValues.USER_ID = this.storage.get(StorageValues.USER_ID);
+      this.afAuth.authState.subscribe((auth) => {
+        this.logger.log(auth.refreshToken);
+        if(auth.refreshToken === accessToken) {
           resolve();
-          return;
+        }else {
+          reject();
         }
+      },err => {
         reject();
-        return;
-      }
-      reject();
-
-
-
-
-
+      })
 
     });
   }

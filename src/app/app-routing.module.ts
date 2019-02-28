@@ -10,15 +10,15 @@ import {RegisterComponent} from "./pages/register/register.component";
 
 const routes: Routes = [
   {path: '',  redirectTo: '/home', pathMatch: 'full'},
-  {path: 'login', component: LoginPageComponent},
-  {path: 'log-list', component: LogListComponent},
+  {path: 'login', component: LoginPageComponent,pathMatch: 'full'},
+  {path: 'log-list', component: LogListComponent,pathMatch: 'prefix'},
   {
     path: 'home', component: HomePageComponent, children:[
       {path: 'list', component: ListPageComponent},
       {path: 'log-list', component: LogListComponent}
     ]
   },
-  {path: 'register', redirectTo:'/register', pathMatch: 'full'},
+  {path: 'register', redirectTo:'/register',},
   {path: 'register', component: RegisterComponent}
 ];
 
