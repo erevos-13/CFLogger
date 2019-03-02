@@ -24,8 +24,7 @@ export class UserApi {
 
 
   public getUserProfile(userId:string,accessToken: string) : Observable<any> {
-    const params = new HttpParams().set('access_token',accessToken)
-      .set('userId', userId);
+    const params = new HttpParams().set('userId', userId);
     return this.httpApi.get(`${environment.URL_DEV}/api/Users/getUserProfile`,
       {params}
       );
@@ -68,13 +67,14 @@ export interface ILoginRes {
 
 
 export interface UserDTO {
-  "realm": string;
-  "username": string;
-  "email": string;
-  "emailVerified": boolean;
-  "id": string;
-  "metadata": MetadataDTO[];
-
+  userDTO: {
+    "realm": string;
+    "username": string;
+    "email": string;
+    "emailVerified": boolean;
+    "id": string;
+    "metadata": MetadataDTO[];
+  }
 }
 
 export interface MetadataDTO {

@@ -9,7 +9,7 @@ import {AppComponent} from "./app.component";
 import {RegisterComponent} from "./pages/register/register.component";
 
 const routes: Routes = [
-  {path: '',  redirectTo: '/home', pathMatch: 'full'},
+  {path: '',  redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent,pathMatch: 'full'},
   {path: 'log-list', component: LogListComponent,pathMatch: 'prefix'},
   {

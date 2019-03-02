@@ -60,8 +60,9 @@ export class LoginPageComponent implements OnInit {
     this.storage.set(StorageValues.REMEMBER_PASSWORD, this.loginInForm.value.rememberPassword);
     this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(this.loginInForm.value.username, this.loginInForm.value.password)
       .then((auth: auth.UserCredential) => {
-        this.logger.log(auth.user.refreshToken);
+        this.logger.log(auth.user);
         this.storage.set(StorageValues.ACCESS_TOKEN,auth.user.refreshToken);
+        this.storage.set(StorageValues.USER_ID, auth.user.uid);
         this.router.navigate(['/home/log-list']).catch(() => {
         });
 

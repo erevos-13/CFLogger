@@ -8,7 +8,7 @@ import {LogListComponent} from './pages/home-page/log-list/log-list.component';
 import {JumbotronComponent} from './modules/jumbotron/jumbotron.component';
 import {
   NgbDropdownConfig,
-  NgbModule
+  NgbModule, NgbProgressbarConfig
 } from '@ng-bootstrap/ng-bootstrap';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -92,6 +92,7 @@ export function getAuthServiceConfigs() {
     UsersService,
     NgbDropdownConfig,
     InitService,
+    NgbProgressbarConfig,
     {
       provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs

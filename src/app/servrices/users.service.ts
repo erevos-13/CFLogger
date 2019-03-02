@@ -2,11 +2,13 @@ import {Inject, Injectable} from '@angular/core';
 import {ILoginRes, ILogout, IMetadataAdd, IuserAuth, MetadataDTO, UserApi, UserDTO} from '../RestApi/user-api';
 import {Settings} from "./settings";
 import UserValues = Settings.UserValues;
-import {Observable, Subscription} from "rxjs";
+import { Observable, Subscription} from "rxjs";
 import StorageValues = Settings.StorageValues;
 import {SESSION_STORAGE, StorageService} from 'ngx-webstorage-service';
-import {User} from "firebase";
 import {NGXLogger} from "ngx-logger";
+import {AngularFireAuth} from "@angular/fire/auth";
+import * as _ from 'lodash';
+import {User} from "firebase";
 
 
 @Injectable({
@@ -17,7 +19,8 @@ export class UsersService {
   constructor(
     private userApi: UserApi,
     private logger: NGXLogger,
-    @Inject(SESSION_STORAGE) private storageSrv: StorageService
+    @Inject(SESSION_STORAGE) private storageSrv: StorageService,
+    private afAuth: AngularFireAuth,
   ) {
   }
 
@@ -50,39 +53,53 @@ export class UsersService {
       const input: ILogout = {
         access_token: this.storageSrv.get(StorageValues.ACCESS_TOKEN)
       };
-
-      this.userApi.logoutUser(input)
-        .then((logOut) => {
-          console.log(logOut);
+      this.afAuth.auth.signOut()
+        .then(() => {
           this.storageSrv.remove(StorageValues.ACCESS_TOKEN);
+          this.storageSrv.remove(StorageValues.USER_ID);
           resolve();
         })
-        .catch((error) => {
-          this.storageSrv.remove(StorageValues.ACCESS_TOKEN);
-          reject();
+        .catch(() => {
+          reject()
         });
+
+      // this.userApi.logoutUser(input)
+      //   .then((logOut) => {
+      //     console.log(logOut);
+      //     this.storageSrv.remove(StorageValues.ACCESS_TOKEN);
+      //     resolve();
+      //   })
+      //   .catch((error) => {
+      //     this.storageSrv.remove(StorageValues.ACCESS_TOKEN);
+      //     reject();
+      //   });
 
     });
   }
 
 
-  public getUserProfile(): Observable<UserDTO> {
+  public getUserProfile(): Observable<IUser> {
     return Observable.create(observer => {
-      if (UserValues.ACCESS_TOKEN && UserValues.USER_ID) {
-        const sub: Subscription = this.userApi.getUserProfile(UserValues.USER_ID, UserValues.ACCESS_TOKEN).subscribe(
-          (user_: UserDTO) => {
+      let  user_: IUser;
+        const sub: Subscription = this.userApi.getUserProfile(this.storageSrv.get(StorageValues.USER_ID), UserValues.ACCESS_TOKEN).subscribe(
+          (userProfile: UserDTO) => {
             sub.unsubscribe();
-            console.log(user_);
-            observer.next(user_);
+            this.afAuth.user.subscribe((user) => {
+              if(!_.isNil(user) && !_.isNil(userProfile)) {
+                user_ = {data: user, metadata: userProfile.userDTO[0].metadata };
+              }
+              this.logger.log(user_);
+              observer.next(user_);
+            })
+
           }, error => {
             sub.unsubscribe();
             observer.error(error);
           });
-        return;
-      }
 
-      observer.error(null);
-
+        return () => {
+          sub.unsubscribe();
+        }
     });
   }
 
@@ -126,3 +143,8 @@ export class UsersService {
   }
 
 } // END CLASS
+
+export interface IUser {
+  data: User;
+  metadata: MetadataDTO[];
+}

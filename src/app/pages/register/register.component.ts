@@ -3,6 +3,9 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import {UsersService} from "../../servrices/users.service";
+import {AngularFireStorage} from "@angular/fire/storage";
+import {Observable} from "rxjs";
+import {finalize} from "rxjs/operators";
 
 
 @Component({
@@ -14,11 +17,14 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   registerUser:IRegister;
+  uploadPercent: Observable<number>;
+  downloadURL: Observable<string>;
 
   constructor(
     private afAuth: AngularFireAuth,
      private formBuilder: FormBuilder,
-    private userSrv: UsersService
+    private userSrv: UsersService,
+    private storage: AngularFireStorage
   ) { }
 
   ngOnInit() {
@@ -32,6 +38,25 @@ export class RegisterComponent implements OnInit {
       email: [this.registerUser.email, Validators.required]
     });
 
+  }
+
+
+
+  uploadFile(event) {
+    const file = event.target.files[0];
+    const filePath = 'picIrl';
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+
+    // observe percentage changes
+    this.uploadPercent = task.percentageChanges();
+    // get notified when the download URL is available
+    task.snapshotChanges().pipe(
+      finalize(() => this.downloadURL = fileRef.getDownloadURL() )
+    )
+      .subscribe((result) => {
+        console.log(result);
+      })
   }
 
   /**

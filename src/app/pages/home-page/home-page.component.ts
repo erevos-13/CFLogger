@@ -31,18 +31,6 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {
 
-    //get user profile
-    this.userSrv.getUserProfile().subscribe(
-      (user: UserDTO) => {
-        console.log(user);
-        if(!_.isNil(user)) {
-          this.infoUser = user;
-          return;
-        }
-      }, error => {
-        console.log(error);
-      }
-    )
 
   }
 
