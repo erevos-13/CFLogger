@@ -38,7 +38,8 @@ export class LogListComponent extends BasePage implements OnInit {
       (user: IUser) => {
         this.logger.debug(user);
         this.user = user;
-        this.userName = user.metadata[METADATA_KEY.USER_NAME];
+        this.userName = user.metadata[METADATA_KEY.FIRST_NAME];
+        this.userLastName = user.metadata[METADATA_KEY.SURNAME];
 
       }, error => {
         this.logger.error(error);

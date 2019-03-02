@@ -6,5 +6,7 @@
   "LOGOUT_TITLE": "LOGOUT",
   "JUMBOTRON_TITLE": "This the place where you compete with your self.",
   "JUMBOTRON_NAME":"Crossfit Logger",
-  "REGISTER": "Register"
+  "REGISTER": "Register",
+  "LANDING_INFO": "This is the info i need to add here for the user to see what level is.",
+  "LOG_LIST_LEVEL": "Level:"
 }
