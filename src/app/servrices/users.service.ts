@@ -2,13 +2,18 @@ import {Inject, Injectable} from '@angular/core';
 import {ILoginRes, ILogout, IMetadataAdd, IuserAuth, MetadataDTO, UserApi, UserDTO} from '../RestApi/user-api';
 import {Settings} from "./settings";
 import UserValues = Settings.UserValues;
-import { Observable, Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import StorageValues = Settings.StorageValues;
 import {SESSION_STORAGE, StorageService} from 'ngx-webstorage-service';
 import {NGXLogger} from "ngx-logger";
 import {AngularFireAuth} from "@angular/fire/auth";
 import * as _ from 'lodash';
 import {User} from "firebase";
+import {Meta} from "@angular/platform-browser";
+import {IRegister} from "../pages/register/register.component";
+import METADATA_KEY = Settings.METADATA_KEY;
+import {AngularFireStorage} from "@angular/fire/storage";
+import PIC_USERS = Settings.PIC_PATHS.PIC_USERS;
 
 
 @Injectable({
@@ -21,6 +26,7 @@ export class UsersService {
     private logger: NGXLogger,
     @Inject(SESSION_STORAGE) private storageSrv: StorageService,
     private afAuth: AngularFireAuth,
+    private storage: AngularFireStorage
   ) {
   }
 
@@ -80,46 +86,65 @@ export class UsersService {
 
   public getUserProfile(): Observable<IUser> {
     return Observable.create(observer => {
-      let  user_: IUser;
-        const sub: Subscription = this.userApi.getUserProfile(this.storageSrv.get(StorageValues.USER_ID), UserValues.ACCESS_TOKEN).subscribe(
-          (userProfile: UserDTO) => {
-            sub.unsubscribe();
-            this.afAuth.user.subscribe((user) => {
-              if(!_.isNil(user) && !_.isNil(userProfile)) {
-                user_ = {data: user, metadata: userProfile.userDTO[0].metadata };
-              }
-              this.logger.log(user_);
-              observer.next(user_);
-            })
-
-          }, error => {
-            sub.unsubscribe();
-            observer.error(error);
-          });
-
-        return () => {
+      let user_: IUser;
+      const sub: Subscription = this.userApi.getUserProfile(this.storageSrv.get(StorageValues.USER_ID), UserValues.ACCESS_TOKEN).subscribe(
+        (userProfile: UserDTO) => {
           sub.unsubscribe();
-        }
+          this.afAuth.user.subscribe((user) => {
+            if (!_.isNil(user) && !_.isNil(userProfile)) {
+              const ref = this.storage.ref(`${PIC_USERS}/${user.uid}`);
+
+              user_ = {data: user, metadata: userProfile.userDTO[0].metadata, photoUrl: ref.getDownloadURL()};
+            }
+            this.logger.log(user_);
+            observer.next(user_);
+          })
+
+        }, error => {
+          sub.unsubscribe();
+          observer.error(error);
+        });
+
+      return () => {
+        sub.unsubscribe();
+      }
     });
   }
 
 
-  public addUserMetadata(itemId: string, typeOfMetadata:number): Promise<any> {
+  public addUserMetadata(itemId: string, typeOfMetadata: number, user_: IRegister): Promise<any> {
     return new Promise((resolve, reject) => {
 
       const input_: IMetadataAdd = {
-        itemId:itemId,
+        itemId: itemId,
         metadatatypeId: typeOfMetadata,
-        metadata: [
-          {
-            key: 'personal_last_name',
-            value: 'test'
-          }
-        ]
+        metadata: {}
       };
-      this.userApi.addMetadata(input_).subscribe(
+      if(!_.isNil(user_.email)) {
+        input_.metadata[METADATA_KEY.EMAIL] = user_.email;
+      }
+
+      if (!_.isNil(user_.username)) {
+        input_.metadata[METADATA_KEY.USER_NAME] = user_.username;
+      }
+      if (!_.isNil(user_.lastName)) {
+        input_.metadata[METADATA_KEY.SURNAME] = user_.lastName
+      }
+      if (!_.isNil(user_.box)) {
+        input_.metadata[METADATA_KEY.FIRST_NAME] = user_.firstName;
+      }
+      if (!_.isNil(user_.firstName)) {
+        input_.metadata[METADATA_KEY.BOX] = user_.box;
+      }
+
+      const sub$: Subscription = this.userApi.addMetadata(input_).subscribe(
         (metadata) => {
           this.logger.log(metadata);
+          sub$.unsubscribe();
+          resolve(metadata);
+        }, err => {
+          sub$.unsubscribe();
+          reject(err);
         }
       )
 
@@ -134,7 +159,7 @@ export class UsersService {
         (result) => {
           this.logger.log(result);
           observer.next(result);
-        },error => {
+        }, error => {
           this.logger.log(error);
           observer.error(error);
         }
@@ -146,5 +171,6 @@ export class UsersService {
 
 export interface IUser {
   data: User;
-  metadata: MetadataDTO[];
+  metadata: MetadataDTO | any;
+  photoUrl: any;
 }

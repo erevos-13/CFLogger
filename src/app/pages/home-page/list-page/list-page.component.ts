@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {finalize} from "rxjs/operators";
 import {AngularFireStorage} from "@angular/fire/storage";
 import {Observable} from "rxjs";
+import * as _ from 'lodash';
+
 
 @Component({
   selector: 'app-list-page',

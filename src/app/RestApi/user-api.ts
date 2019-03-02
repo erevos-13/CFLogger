@@ -73,7 +73,7 @@ export interface UserDTO {
     "email": string;
     "emailVerified": boolean;
     "id": string;
-    "metadata": MetadataDTO[];
+    "metadata": MetadataDTO;
   }
 }
 
@@ -92,6 +92,6 @@ export interface IMetadata {
 export interface IMetadataAdd {
   itemId: string;
   metadatatypeId: number;
-  metadata: IMetadata[];
+  metadata?: any;
   id?: string;
 }

@@ -9,15 +9,15 @@
         </div>
         <div class="form-group  col-12 col-sm-12 col-md-12 col-lg-12">
           <label>User name:</label>
-          <input type="password" class="form-control" formControlName="username" placeholder="user name">
+          <input type="text" class="form-control" formControlName="username" placeholder="user name">
         </div>
         <div class="form-group  col-12 col-sm-12 col-md-12 col-lg-12">
           <label>Last name</label>
-          <input type="password" class="form-control" formControlName="lastName" placeholder="last name">
+          <input type="text" class="form-control" formControlName="lastName" placeholder="last name">
         </div>
         <div class="form-group  col-12 col-sm-12 col-md-12 col-lg-12">
           <label>First Name:</label>
-          <input type="password" class="form-control" formControlName="firstName" placeholder="First name">
+          <input type="text" class="form-control" formControlName="firstName" placeholder="First name">
         </div>
         <div class="form-group  col-12 col-sm-12 col-md-12 col-lg-12">
           <label>Box:</label>
@@ -33,9 +33,9 @@
 
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-first">
       <h1>Put img</h1>
-      <input type="file" (change)="uploadFile($event)" />
-      <div>{{ uploadPercent | async }}</div>
-      <a [href]="downloadURL | async">{{ downloadURL | async }}</a>
+      <input type="file" (change)="selectPic($event)" />
+      <p><ngb-progressbar [value]="uploadPercent | async"></ngb-progressbar></p>
+      <a [href]="downloadURL | async"></a>
     </div>
 
   </div>

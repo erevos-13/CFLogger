@@ -5,11 +5,11 @@
     <div class="card mb-3">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="https://firebasestorage.googleapis.com/v0/b/pragmatic-port-215917.appspot.com/o/UsersPic%2FpicIrl%2FNupIeZmypzZn7mKMI2opi2IulKu1?alt=media&token=31b668c9-2b30-453a-8994-271688d5cfee" class="card-img" alt="...">
+          <img [src]="user?.photoUrl | async" class="card-img" alt="picUser">
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">{{ userName }}</h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             <p><ngb-progressbar [value]="25"></ngb-progressbar></p>
             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>

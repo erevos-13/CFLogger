@@ -12,4 +12,19 @@ export namespace Settings{
     export const USER_ID: string = 'userId';
   }
 
-}
+
+
+  export namespace PIC_PATHS {
+    export const PIC_USERS: string = 'UsersPic/picIrl';
+  }
+
+
+  export namespace METADATA_KEY {
+    export const FIRST_NAME: string = 'personal_first_name';
+    export const SURNAME: string = 'personal_surname';
+    export const BOX: string = 'personal_box';
+    export const EMAIL: string = 'personal_email';
+    export const USER_NAME: string = 'username';
+  }
+
+}// END CLASS

@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {IUser, UsersService} from "../../../servrices/users.service";
 import {BasePage} from "../../base-page";
-import {logger} from "codelyzer/util/logger";
 import {NGXLogger} from "ngx-logger";
-import {User} from "firebase";
-import {UserDTO} from "../../../RestApi/user-api";
 import {NgbProgressbarConfig} from "@ng-bootstrap/ng-bootstrap";
+import {Settings} from "../../../servrices/settings";
+import METADATA_KEY = Settings.METADATA_KEY;
+import {MetadataDTO} from "../../../RestApi/user-api";
 
 @Component({
   selector: 'app-log-list',
@@ -14,6 +14,10 @@ import {NgbProgressbarConfig} from "@ng-bootstrap/ng-bootstrap";
 })
 export class LogListComponent extends BasePage implements OnInit {
   protected listCart: IlistLog[] = [];
+  protected user: IUser;
+  protected userName: string;
+  protected userLastName: string;
+
 
   constructor(
     private userSrv: UsersService,
@@ -33,6 +37,9 @@ export class LogListComponent extends BasePage implements OnInit {
     this.userSrv.getUserProfile().subscribe(
       (user: IUser) => {
         this.logger.debug(user);
+        this.user = user;
+        this.userName = user.metadata[METADATA_KEY.USER_NAME];
+
       }, error => {
         this.logger.error(error);
       });
