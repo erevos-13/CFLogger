@@ -26,20 +26,24 @@ export class InitService {
   public init(): Promise<any> {
     return new Promise((resolve, reject) => {
       const accessToken: string = this.storage.get(StorageValues.ACCESS_TOKEN);
-      const userId: string= this.storage.get(StorageValues.USER_ID);
       const rememberPassword: string = this.storage.get(StorageValues.REMEMBER_PASSWORD);
-      this.afAuth.authState.subscribe((auth) => {
-        this.logger.log(auth.refreshToken);
-        if(auth.refreshToken === accessToken) {
-          resolve();
-        }else {
+      if(rememberPassword) {
+        this.afAuth.authState.subscribe((auth) => {
+          this.logger.log(auth.refreshToken);
+          if(auth.refreshToken === accessToken) {
+            resolve();
+          }else {
+            this.storage.clear();
+            reject();
+          }
+        },err => {
           this.storage.clear();
           reject();
-        }
-      },err => {
-        this.storage.clear();
-        reject();
-      })
+        });
+        return;
+      }
+      reject();
+
 
     });
   }
