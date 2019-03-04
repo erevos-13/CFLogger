@@ -17,6 +17,7 @@ export class AppComponent {
     private initSrv: InitService
   ) {
     translate.setDefaultLang('en');
+    translate.use('en');
     this.initSrv.init()
       .then(() => {
         console.log('app component');

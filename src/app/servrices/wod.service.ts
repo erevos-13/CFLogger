@@ -14,12 +14,11 @@ export class WodService {
     private logger: NGXLogger
   ) { }
 
-  public getAllWods(): Observable<WodsDTO[]> {
+  public getAllWods(): Observable<WodsDTO[] > {
     return Observable.create(observer => {
 
       const sub$_: Subscription = this.wodApi.getAllWod().subscribe(
         (wods) => {
-          this.logger.debug(wods);
           observer.next(wods);
         },err => {
           this.logger.error(err);

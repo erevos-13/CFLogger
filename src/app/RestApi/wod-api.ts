@@ -14,9 +14,9 @@ export class WodApi {
   ) { }
 
 
-  public getAllWod(): any {
-    const headers: HttpHeaders = new HttpHeaders()
-    const params: HttpParams = new HttpParams()
+  public getAllWod(): Observable<WodsDTO[] | Object> {
+    const headers: HttpHeaders = new HttpHeaders();
+    const params: HttpParams = new HttpParams();
      return this.httpApi.get(`${environment.URL_DEV}/api/wods/wodAll`);
   }
 

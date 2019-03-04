@@ -8,5 +8,6 @@
   "JUMBOTRON_NAME":"Crossfit Logger",
   "REGISTER": "Register",
   "LANDING_INFO": "This is the info i need to add here for the user to see what level is.",
-  "LOG_LIST_LEVEL": "Level:"
+  "LOG_LIST_LEVEL": "Level:",
+  "CAP_TIME":"Cap time for wod:"
 }

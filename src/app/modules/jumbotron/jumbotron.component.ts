@@ -8,7 +8,7 @@ import {TranslateService} from "@ngx-translate/core";
 @Component({
   selector: 'app-jumbotron',
   templateUrl: './jumbotron.html',
-  styleUrls: ['./jumbotron.component.css']
+  styleUrls: ['./jumbotron.component.scss']
 })
 export class JumbotronComponent implements OnInit{
 

@@ -27,4 +27,11 @@ export namespace Settings{
     export const USER_NAME: string = 'username';
   }
 
+  export enum RESOURCES_TYPES{
+    NAME = 1,
+    TITLE = 2,
+    DESCRIPTION = 3,
+
+  }
+
 }// END CLASS
