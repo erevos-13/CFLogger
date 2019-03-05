@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UsersService} from '../../servrices/users.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {PopUpComponent} from "../../modules/pop-up/pop-up.component";
 import {SESSION_STORAGE, StorageService} from 'ngx-webstorage-service';
@@ -74,6 +74,11 @@ export class LoginPageComponent implements OnInit {
         modalRef.componentInstance.title = "ERROR";
         console.log(error);
       })
+  }
+
+  public isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 
 } // END CLASS

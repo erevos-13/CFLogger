@@ -20,7 +20,7 @@ import {UsersService} from './servrices/users.service';
 import {RestApiModule} from './RestApi/restApi.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatDialogModule, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialogModule, MAT_DIALOG_DATA, MatInputModule} from '@angular/material';
 import {PopUpComponent} from './modules/pop-up/pop-up.component';
 import {ListPageComponent} from './pages/home-page/list-page/list-page.component';
 import {LogOutComponent} from "./modules/log-out/log-out.component";
@@ -76,6 +76,7 @@ export function getAuthServiceConfigs() {
     BrowserAnimationsModule,
     MatDialogModule,
     StorageServiceModule,
+    MatInputModule,
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule,// imports firebase/storage only needed for storage features
