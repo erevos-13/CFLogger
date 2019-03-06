@@ -34,6 +34,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { SkeletonComponent } from './components/skeleton/skeleton.component';
+import {LeaderboardComponent} from "./pages/leaderboard/leaderboard.component";
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -63,7 +64,8 @@ export function getAuthServiceConfigs() {
     ListPageComponent,
     LogOutComponent,
     RegisterComponent,
-    SkeletonComponent
+    SkeletonComponent,
+    LeaderboardComponent
   ],
   imports: [
     SocialLoginModule,

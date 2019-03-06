@@ -7,11 +7,13 @@ import {LoginPageComponent} from './pages/login-page/login-page.component';
 import {ListPageComponent} from "./pages/home-page/list-page/list-page.component";
 import {AppComponent} from "./app.component";
 import {RegisterComponent} from "./pages/register/register.component";
+import {LeaderboardComponent} from "./pages/leaderboard/leaderboard.component";
 
 const routes: Routes = [
   {path: '',  redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent,pathMatch: 'full'},
   {path: 'log-list', component: LogListComponent,pathMatch: 'prefix'},
+  {path: 'leaderboard', component: LeaderboardComponent},
   {
     path: 'home', component: HomePageComponent, children:[
       {path: 'list', component: ListPageComponent},

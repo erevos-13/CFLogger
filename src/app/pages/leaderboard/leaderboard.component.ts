@@ -1,0 +1,24 @@
+import { Component, OnInit } from '@angular/core';
+import {LogOutComponent} from "../../modules/log-out/log-out.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+
+@Component({
+  selector: 'app-leaderboard',
+  templateUrl: './leaderboard.component.html',
+  styleUrls: ['./leaderboard.component.css']
+})
+export class LeaderboardComponent implements OnInit {
+
+  constructor(
+    private modalService: NgbModal,
+  ) { }
+
+  ngOnInit() {
+  }
+  private onLogout() {
+    const modalRef = this.modalService.open(LogOutComponent);
+    modalRef.componentInstance.name = this.translateSrv.instant('LOGOUT_MESSAGE');
+    modalRef.componentInstance.title = this.translateSrv.instant('LOGOUT_TITLE');
+  }
+
+}
