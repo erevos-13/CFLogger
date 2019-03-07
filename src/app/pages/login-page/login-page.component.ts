@@ -7,16 +7,14 @@ import {PopUpComponent} from "../../modules/pop-up/pop-up.component";
 import {SESSION_STORAGE, StorageService} from 'ngx-webstorage-service';
 import {Settings} from "../../servrices/settings";
 import StorageValues = Settings.StorageValues;
-import {AuthService, FacebookLoginProvider, GoogleLoginProvider} from "angular-6-social-login";
 import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase/app';
 import {NGXLogger} from "ngx-logger";
-import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
 

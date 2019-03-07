@@ -1,0 +1,21 @@
+@import "../../../../my-theme.scss";
+
+$breakpoint: map-get($breakpoints, sm);
+
+
+.profile-card{
+  height: 250px;
+  width: 100%;
+}
+
+
+.card-img{
+  height: 150px;
+  width: auto;
+}
+@media screen and (max-width: $breakpoint) {
+  .profile-card{
+    height: 400px;
+    width: 100%;
+  }
+}

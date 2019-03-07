@@ -30,3 +30,4 @@ $CfLogger-theme: mat-light-theme($CfLogger-primary, $CfLogger-accent, $CfLogger-
 @include mat-core();
 @import "./assets/scss/general";
 @import "./assets/scss/forms";
+@import "./assets/scss/values";

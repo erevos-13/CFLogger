@@ -1,12 +1,12 @@
 <div class="container  d-flex justify-content-center">
   <!-- Content here -->
-  <div class="form-container row ">
+  <div class="form-container row justify-content-md-center ">
     <div>
       <h1>{{ 'LOGIN_TITLE' |  translate }}</h1>
     </div>
     <form class="col-12 col-md-12 col-lg-12" [formGroup]="loginInForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Email" formControlName="username">
+        <input matInput placeholder="Email" type="email" formControlName="username">
       </mat-form-field>
 
       <!--<div class="form-group">-->
@@ -14,7 +14,7 @@
         <!--<input type="email" class="form-control" formControlName="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">-->
       <!--</div>-->
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Password" formControlName="password">
+        <input matInput placeholder="Password" type="password" formControlName="password">
       </mat-form-field>
       <div class="form-group form-check">
         <input type="checkbox"  formControlName="rememberPassword"  class="form-check-input" id="exampleCheck1">

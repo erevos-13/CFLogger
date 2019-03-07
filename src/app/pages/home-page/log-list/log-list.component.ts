@@ -10,7 +10,7 @@ import {MetadataDTO} from "../../../RestApi/user-api";
 @Component({
   selector: 'app-log-list',
   templateUrl: './log-list.component.html',
-  styleUrls: ['./log-list.component.css']
+  styleUrls: ['./log-list.component.scss']
 })
 export class LogListComponent extends BasePage implements OnInit {
   protected listCart: IlistLog[] = [];

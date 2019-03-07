@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {LogOutComponent} from "../../modules/log-out/log-out.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-leaderboard',
@@ -11,6 +12,7 @@ export class LeaderboardComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
+    private translateSrv: TranslateService
   ) { }
 
   ngOnInit() {
