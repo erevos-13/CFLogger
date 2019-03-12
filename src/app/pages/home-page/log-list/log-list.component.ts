@@ -6,6 +6,7 @@ import {NgbProgressbarConfig} from "@ng-bootstrap/ng-bootstrap";
 import {Settings} from "../../../servrices/settings";
 import METADATA_KEY = Settings.METADATA_KEY;
 import {MetadataDTO} from "../../../RestApi/user-api";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-log-list',
@@ -17,12 +18,14 @@ export class LogListComponent extends BasePage implements OnInit {
   protected user: IUser;
   protected userName: string;
   protected userLastName: string;
+  protected loadedAll: boolean = false;
 
 
   constructor(
     private userSrv: UsersService,
     private logger: NGXLogger,
-    private configBar: NgbProgressbarConfig
+    private configBar: NgbProgressbarConfig,
+    private router: Router
 
   ) {
     super();
@@ -37,10 +40,11 @@ export class LogListComponent extends BasePage implements OnInit {
     this.userSrv.getUserProfile().subscribe(
       (user: IUser) => {
         this.logger.debug(user);
+
         this.user = user;
         this.userName = user.metadata[METADATA_KEY.FIRST_NAME];
         this.userLastName = user.metadata[METADATA_KEY.SURNAME];
-
+        this.loadedAll = true;
       }, error => {
         this.logger.error(error);
       });
@@ -57,6 +61,16 @@ export class LogListComponent extends BasePage implements OnInit {
         subTitle: 'Sub title 2'
       }
     ];
+  }
+
+
+
+
+  protected submitScore(wod) {
+    this.logger.log(wod);
+    this.router.navigate(['submit-score']).catch((err) =>{
+      this.logger.log(err);
+    })
   }
 
 } // END CLASS

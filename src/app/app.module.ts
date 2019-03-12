@@ -35,6 +35,12 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { SkeletonComponent } from './components/skeleton/skeleton.component';
 import {LeaderboardComponent} from "./pages/leaderboard/leaderboard.component";
+import {SpinnerModule} from "./components/spinner/spinner.module";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {intersectionObserverPreset, LazyLoadImageModule} from "ng-lazyload-image";
+import {SubmitScoreComponent} from "./pages/submit-score/submit-score.component";
+import {MatSelectModule} from '@angular/material/select';
+
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -65,7 +71,8 @@ export function getAuthServiceConfigs() {
     LogOutComponent,
     RegisterComponent,
     SkeletonComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    SubmitScoreComponent
   ],
   imports: [
     SocialLoginModule,
@@ -79,6 +86,9 @@ export function getAuthServiceConfigs() {
     MatDialogModule,
     StorageServiceModule,
     MatInputModule,
+    MatFormFieldModule,
+    SpinnerModule,
+    MatSelectModule,
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule,// imports firebase/storage only needed for storage features
@@ -90,6 +100,9 @@ export function getAuthServiceConfigs() {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
+    }),
+    LazyLoadImageModule.forRoot({
+      preset: intersectionObserverPreset
     }),
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],

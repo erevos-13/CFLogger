@@ -8,7 +8,6 @@
     <div ngbDropdown >
       <button class="btn btn-outline-primary navbar-toggler" id="dropdownConfig" ngbDropdownToggle>Toggle</button>
       <div ngbDropdownMenu aria-labelledby="dropdownConfig">
-        <button class="dropdown-item" routerLink="/home" routerLinkActive="active">Home</button>
         <button class="dropdown-item" [routerLink]="'list'" routerLinkActive="active">List</button>
         <button class="dropdown-item" [routerLink]="'log-list'" routerLinkActive="active">Log List</button>
         <button class="dropdown-item" [routerLink]="'/leaderboard'" routerLinkActive="active">LeaderBoard</button>
@@ -17,9 +16,6 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="log-list" routerLinkActive="active">Log List</a>
         </li>

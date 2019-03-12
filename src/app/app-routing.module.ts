@@ -8,20 +8,23 @@ import {ListPageComponent} from "./pages/home-page/list-page/list-page.component
 import {AppComponent} from "./app.component";
 import {RegisterComponent} from "./pages/register/register.component";
 import {LeaderboardComponent} from "./pages/leaderboard/leaderboard.component";
+import {SubmitScoreComponent} from "./pages/submit-score/submit-score.component";
 
 const routes: Routes = [
   {path: '',  redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent,pathMatch: 'full'},
   {path: 'log-list', component: LogListComponent,pathMatch: 'prefix'},
   {path: 'leaderboard', component: LeaderboardComponent},
+  {path: 'submit-score', component: SubmitScoreComponent,pathMatch: 'full'},
   {
     path: 'home', component: HomePageComponent, children:[
       {path: 'list', component: ListPageComponent},
       {path: 'log-list', component: LogListComponent}
     ]
   },
-  {path: 'register', redirectTo:'/register',},
+  {path: 'register', redirectTo:'/register'},
   {path: 'register', component: RegisterComponent}
+
 ];
 
 
