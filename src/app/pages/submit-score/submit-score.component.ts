@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UsersService} from "../../servrices/users.service";
 
 @Component({
   selector: 'app-submit-score',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubmitScoreComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private userSrv:UsersService
+  ) { }
 
   ngOnInit() {
+    this.userSrv.addSubmit().subscribe(() =>{},error => {console.log(error)});
   }
 
 }

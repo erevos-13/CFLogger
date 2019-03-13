@@ -11,6 +11,7 @@
         <button class="dropdown-item" [routerLink]="'list'" routerLinkActive="active">List</button>
         <button class="dropdown-item" [routerLink]="'log-list'" routerLinkActive="active">Log List</button>
         <button class="dropdown-item" [routerLink]="'/leaderboard'" routerLinkActive="active">LeaderBoard</button>
+        <button class="dropdown-item" [routerLink]="'/submit-score'" routerLinkActive="active">submit-score</button>
         <button class="dropdown-item" (click)="onLogout()">Logout</button>
       </div>
     </div>
@@ -24,6 +25,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/submit-score" routerLinkActive="active">submit-score</a>
         </li>
       </ul>
     </div>

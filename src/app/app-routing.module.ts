@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'login', component: LoginPageComponent,pathMatch: 'full'},
   {path: 'log-list', component: LogListComponent,pathMatch: 'prefix'},
   {path: 'leaderboard', component: LeaderboardComponent},
-  {path: 'submit-score', component: SubmitScoreComponent,pathMatch: 'full'},
+
   {
     path: 'home', component: HomePageComponent, children:[
       {path: 'list', component: ListPageComponent},
@@ -23,7 +23,9 @@ const routes: Routes = [
     ]
   },
   {path: 'register', redirectTo:'/register'},
-  {path: 'register', component: RegisterComponent}
+  {path: 'register', component: RegisterComponent},
+  {path: 'submit-score',redirectTo:'/submit-score'},
+  {path: 'submit-score', component: SubmitScoreComponent},
 
 ];
 

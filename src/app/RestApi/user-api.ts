@@ -44,6 +44,10 @@ export class UserApi {
     return this.httpApi.post(`https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken`,null,{headers:headers,params:params});
   }
 
+  public addSubmit(input: any): Observable<any> {
+    return this.httpApi.post(`${environment.URL_DEV}/api/Users/submitScore`,{userId: 'OD7cAHwdk3S4BRck9Gez8qcXDlp2',wodId:'j7ZyQm0lunoNER5vt4eG',typeOfWod: 2,score:'16:26'});
+  }
+
 } // END CLASS
 
 

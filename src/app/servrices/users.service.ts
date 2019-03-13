@@ -167,6 +167,21 @@ export class UsersService {
     });
   }
 
+
+  public addSubmit(): Observable<any> {
+    return Observable.create(observer => {
+      this.userApi.addSubmit('some').subscribe(
+        (result) => {
+          this.logger.log(result);
+          observer.next(result);
+        }, error => {
+          this.logger.log(error);
+          observer.error(error);
+        }
+      );
+    });
+  }
+
 } // END CLASS
 
 export interface IUser {
