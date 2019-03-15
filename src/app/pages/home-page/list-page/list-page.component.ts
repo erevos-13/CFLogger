@@ -9,6 +9,7 @@ import {WodsDTO} from "../../../RestApi/Models/wods-dto";
 import {TranslateService} from "@ngx-translate/core";
 import {Settings} from "../../../servrices/settings";
 import RESOURCES_TYPES = Settings.RESOURCES_TYPES;
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -27,7 +28,8 @@ export class ListPageComponent implements OnInit {
     private storage: AngularFireStorage,
     private wodsSrv: WodService,
     private logger: NGXLogger,
-    protected translate: TranslateService
+    protected translate: TranslateService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -47,6 +49,10 @@ export class ListPageComponent implements OnInit {
 
   selectWod(wod: WodsDTO) {
     this.logger.log(wod);
+    this.router.navigate([`submit-score`,wod.id]).catch(
+      (err) =>{
+        this.logger.error(err);
+      });
     //TODO: send to page for the wod.
   }
 

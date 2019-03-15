@@ -28,4 +28,21 @@ export class WodService {
     });
   }
 
+
+  getWodById(wodId: string):Observable<WodsDTO>{
+    return Observable.create(observer => {
+
+      const sub$_: Subscription = this.wodApi.wodById(wodId).subscribe(
+        (wodById) => {
+          sub$_.unsubscribe();
+          this.logger.log(wodById);
+        },error => {
+          sub$_.unsubscribe();
+          this.logger.error(error);
+        }
+      )
+
+    });
+  }
+
 } // END CLASS

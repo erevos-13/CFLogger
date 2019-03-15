@@ -24,8 +24,8 @@ const routes: Routes = [
   },
   {path: 'register', redirectTo:'/register'},
   {path: 'register', component: RegisterComponent},
-  {path: 'submit-score',redirectTo:'/submit-score'},
-  {path: 'submit-score', component: SubmitScoreComponent},
+  // {path: 'submit-score',redirectTo:'/submit-score'},
+  {path: 'submit-score/:wodId', component: SubmitScoreComponent},
 
 ];
 

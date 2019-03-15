@@ -20,5 +20,10 @@ export class WodApi {
      return this.httpApi.get(`${environment.URL_DEV}/api/wods/wodAll`);
   }
 
+  public wodById(wodId: string): Observable<WodsDTO | Object>{
+    const params: HttpParams = new HttpParams().set('id',wodId);
+    return this.httpApi.get(`${environment.URL_DEV}/api/wods/${wodId}`);
+  }
+
 
 } // END CLASS
