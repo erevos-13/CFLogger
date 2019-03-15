@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {ILoginRes, ILogout, IMetadataAdd, IuserAuth, MetadataDTO, UserApi, UserDTO} from '../RestApi/user-api';
+import {ILoginRes, ILogout, IMetadataAdd, IScore, IuserAuth, MetadataDTO, UserApi, UserDTO} from '../RestApi/user-api';
 import {Settings} from "./settings";
 import UserValues = Settings.UserValues;
 import {Observable, Subscription} from "rxjs";
@@ -168,9 +168,17 @@ export class UsersService {
   }
 
 
-  public addSubmit(): Observable<any> {
+  public addSubmitScoreFn(userId: string, score: string, typeOfWod:number, wodId: string): Observable<any> {
     return Observable.create(observer => {
-      this.userApi.addSubmit('some').subscribe(
+
+      const input_: IScore ={
+        score: score,
+        typeOfWod: typeOfWod,
+        userId: userId,
+        wodId: wodId
+      };
+
+      this.userApi.addSubmitScore(input_).subscribe(
         (result) => {
           this.logger.log(result);
           observer.next(result);

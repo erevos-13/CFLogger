@@ -44,8 +44,8 @@ export class UserApi {
     return this.httpApi.post(`https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken`,null,{headers:headers,params:params});
   }
 
-  public addSubmit(input: any): Observable<any> {
-    return this.httpApi.post(`${environment.URL_DEV}/api/Users/submitScore`,{userId: 'OD7cAHwdk3S4BRck9Gez8qcXDlp2',wodId:'j7ZyQm0lunoNER5vt4eG',typeOfWod: 2,score:'16:26'});
+  public addSubmitScore(input_: IScore): Observable<any> {
+    return this.httpApi.post(`${environment.URL_DEV}/api/Users/submitScore`,input_);
   }
 
 } // END CLASS
@@ -98,4 +98,12 @@ export interface IMetadataAdd {
   metadatatypeId: number;
   metadata?: any;
   id?: string;
+}
+
+
+export interface IScore {
+  score?:string;
+  typeOfWod?:number;
+  userId?:string;
+  wodId?:string;
 }

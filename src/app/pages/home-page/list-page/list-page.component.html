@@ -1,5 +1,5 @@
 <div class="container-fluid p-3">
-  <div class="card mb-3" *ngFor="let item of wods ">
+  <div class="card mb-3" *ngFor="let item of wods " (click)="selectWod(item)">
     <div class="row no-gutters">
       <div class="col-md-4">
         <img src="../../../../assets/images/lumberjack.png" class="card-img" alt="parker">

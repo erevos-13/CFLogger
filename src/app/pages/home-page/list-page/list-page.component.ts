@@ -45,5 +45,11 @@ export class ListPageComponent implements OnInit {
   }
 
 
+  selectWod(wod: WodsDTO) {
+    this.logger.log(wod);
+    //TODO: send to page for the wod.
+  }
 
-}
+
+
+} // END CLASS

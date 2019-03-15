@@ -4,7 +4,7 @@
   </a>
 </nav>
 <div class="container p-3">
-  <div class="example-container">
+  <form class="example-container"  [formGroup]="submitForm" (ngSubmit)="submitScoreOfUser()">
     <mat-form-field>
       <input matInput placeholder="Input">
     </mat-form-field>
@@ -18,5 +18,8 @@
         <mat-option value="option">Option</mat-option>
       </mat-select>
     </mat-form-field>
-  </div>
+    <button type="submit" class="btn btn-large" >Submit</button>
+  </form>
+
+  <button [routerLink]="'/home/list'" routerLinkActive="active" class="btn btn-large" >Go Back</button>
 </div>
