@@ -6,7 +6,7 @@ import {Settings} from "../../servrices/settings";
 import StorageValues = Settings.StorageValues;
 import {ActivatedRoute} from "@angular/router";
 import {NGXLogger} from "ngx-logger";
-import {WodService} from "../../servrices/wod.service";
+import {IWodById, WodService} from "../../servrices/wod.service";
 import {WodsDTO} from "../../RestApi/Models/wods-dto";
 
 @Component({
@@ -15,6 +15,9 @@ import {WodsDTO} from "../../RestApi/Models/wods-dto";
   styleUrls: ['./submit-score.component.scss']
 })
 export class SubmitScoreComponent implements OnInit {
+
+  protected typeOfwod = STATE;
+  protected state:STATE;
 
   protected submitForm: FormGroup;
   private submitScoreUser: IScoreForm;
@@ -29,17 +32,20 @@ export class SubmitScoreComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const id:string = this.route.snapshot.paramMap.get('wodId');
-    this.logger.info(id);
-    this.wodSrv.getWodById(id).subscribe(
-      (wod: WodsDTO) => {
-        this.logger.log(wod)
-      });
-    this.initSubmit();
-
     this.submitForm = this.formBuilder.group({
       score: [this.submitScoreUser.score, Validators.required],
     });
+    const id:string = this.route.snapshot.paramMap.get('wodId');
+    this.logger.info(id);
+    this.wodSrv.getWodById(id).subscribe(
+      (wod: IWodById) => {
+        this.logger.log(wod);
+        this.state = wod.wodById.typeOfWod;
+
+      });
+    this.initSubmit();
+
+
 
   }
 
@@ -61,4 +67,11 @@ export class SubmitScoreComponent implements OnInit {
 
 export  interface IScoreForm {
   score?:string;
+}
+
+
+enum STATE {
+  AMARP =  1,
+  FOR_TIME = 2,
+  REPS = 3
 }
