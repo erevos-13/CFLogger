@@ -2,28 +2,34 @@
   <a class="navbar-brand" href="#">
     <img src="../../../assets/images/user.png" width="30" height="30" alt="">
   </a>
+
 </nav>
 <div class="container main-submit-form p-3">
 
   <div class="container">
 
-    <div class="row">
-      <div class="col-6">info</div>
-      <div class="col-6">info</div>
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="../../../../assets/images/lumberjack.png" class="card-img" alt="parker">
+      </div>
+      <div class="col-md-8" >
+        <div class="card-body">
+          <div class="card-title" [innerHTML]=" wod?.resources[0].resourcesTypesIds[translate.currentLang+'_'+resources.NAME] "></div>
+          <div class="card-text " [innerHTML]=" wod?.resources[0].resourcesTypesIds[translate.currentLang+'_'+resources.DESCRIPTION] "></div>
+          <p class="card-text"><small class="text-muted">{{'CAP_TIME' | translate}} {{ wod?.wodById.capTime }}</small></p>
+        </div>
+      </div>
     </div>
 
   </div>
 
-  <form class="example-container"  [formGroup]="submitForm" (ngSubmit)="submitScoreOfUser()">
-    <mat-form-field *ngIf="typeOfwod.FOR_TIME">
-      <input matInput placeholder="Input">
-    </mat-form-field>
+  <form class="example-container"  [formGroup]="submitForm" (ngSubmit)="submitScoreOfUser()"  [ngSwitch]="state">
+      <ngb-timepicker *ngSwitchCase="typeOfwod.FOR_TIME" formControlName="score"  [(ngModel)]="time"></ngb-timepicker>
 
-    <mat-form-field *ngIf="typeOfwod.REPS">
-      <mat-select placeholder="Select">
-        <mat-option value="option">Option</mat-option>
+
+      <mat-select *ngSwitchCase="typeOfwod.REPS" placeholder="Select">
+        <mat-option  value="option">Option</mat-option>
       </mat-select>
-    </mat-form-field>
     <button type="submit" class="btn btn-large" >Submit</button>
   </form>
 

@@ -45,7 +45,7 @@ export class UserApi {
   }
 
   public addSubmitScore(input_: IScore): Observable<any> {
-    return this.httpApi.post(`${environment.URL_DEV}/api/Users/submitScore`,input_);
+    return this.httpApi.post(`${environment.URL_DEV}/api/scores`,input_);
   }
 
 } // END CLASS

@@ -64,5 +64,11 @@ export class WodService {
 
 export interface IWodById {
   wodById: WodsDTO,
-  resources: any
+  resources:
+    {
+      itemId: string;
+      resourcesTypesIds:any;
+      id: string;
+
+    }
 }

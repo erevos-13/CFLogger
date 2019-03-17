@@ -9,6 +9,7 @@ import {AppComponent} from "./app.component";
 import {RegisterComponent} from "./pages/register/register.component";
 import {LeaderboardComponent} from "./pages/leaderboard/leaderboard.component";
 import {SubmitScoreComponent} from "./pages/submit-score/submit-score.component";
+import {CreateWodComponent} from "./pages/create-wod/create-wod.component";
 
 const routes: Routes = [
   {path: '',  redirectTo: '/login', pathMatch: 'full'},
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   // {path: 'submit-score',redirectTo:'/submit-score'},
   {path: 'submit-score/:wodId', component: SubmitScoreComponent},
+  {path: 'create-wod',component:CreateWodComponent},
 
 ];
 

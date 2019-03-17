@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {HomePageComponent} from './pages/home-page/home-page.component';
@@ -18,7 +18,7 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {UsersService} from './servrices/users.service';
 import {RestApiModule} from './RestApi/restApi.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDialogModule, MAT_DIALOG_DATA, MatInputModule} from '@angular/material';
 import {PopUpComponent} from './modules/pop-up/pop-up.component';
@@ -40,6 +40,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {intersectionObserverPreset, LazyLoadImageModule} from "ng-lazyload-image";
 import {SubmitScoreComponent} from "./pages/submit-score/submit-score.component";
 import {MatSelectModule} from '@angular/material/select';
+import {CreateWodComponent} from "./pages/create-wod/create-wod.component";
+import {DynamicFormBuilderModule} from "./components/dynamic-form-builder/dynamic-form-builder.module";
+import {DynamicFormBuilderComponent} from "./components/dynamic-form-builder/dynamic-form-builder.component";
 
 
 
@@ -72,7 +75,8 @@ export function getAuthServiceConfigs() {
     RegisterComponent,
     SkeletonComponent,
     LeaderboardComponent,
-    SubmitScoreComponent
+    SubmitScoreComponent,
+    CreateWodComponent
   ],
   imports: [
     SocialLoginModule,
@@ -89,6 +93,8 @@ export function getAuthServiceConfigs() {
     MatFormFieldModule,
     SpinnerModule,
     MatSelectModule,
+    FormsModule,
+    DynamicFormBuilderModule,
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule,// imports firebase/storage only needed for storage features
@@ -111,6 +117,8 @@ export function getAuthServiceConfigs() {
     NgbDropdownConfig,
     InitService,
     NgbProgressbarConfig,
+
+
     {
       provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs
@@ -120,7 +128,8 @@ export function getAuthServiceConfigs() {
   entryComponents: [
     PopUpComponent,
     LogOutComponent
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA ]
 })
 export class AppModule {
 }

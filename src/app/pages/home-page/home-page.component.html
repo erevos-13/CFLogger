@@ -12,6 +12,7 @@
         <button class="dropdown-item" [routerLink]="'log-list'" routerLinkActive="active">Log List</button>
         <button class="dropdown-item" [routerLink]="'/leaderboard'" routerLinkActive="active">LeaderBoard</button>
         <button class="dropdown-item" [routerLink]="'/submit-score'" routerLinkActive="active">submit-score</button>
+        <button class="dropdown-item" [routerLink]="'/create-wod'" routerLinkActive="active">Create Wod</button>
         <button class="dropdown-item" (click)="onLogout()">Logout</button>
       </div>
     </div>
@@ -28,6 +29,12 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/submit-score" routerLinkActive="active">submit-score</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  [routerLink]="'/create-wod'" routerLinkActive="active">Create Wod</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="onLogout()">Logout</a>
         </li>
       </ul>
     </div>

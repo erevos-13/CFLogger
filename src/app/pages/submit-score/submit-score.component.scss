@@ -12,3 +12,16 @@
   max-width: 600px!important;
 
 }
+
+::ng-deep.ngb-tp-input-container.ngb-tp-hour{
+  display: none!important;
+}
+
+::ng-deep.btn-link{
+  width: auto!important;
+  border: none!important;
+  background-color: transparent!important;
+  color: white!important;
+}
+
+
