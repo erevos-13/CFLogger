@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FieldConfig} from "../../modules/dynamic-form/models/field-config.interface";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DynamicFormComponent} from "../../modules/dynamic-form/dynamic-form.component";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
   selector: 'app-create-wod',
@@ -9,6 +10,7 @@ import {DynamicFormComponent} from "../../modules/dynamic-form/dynamic-form.comp
   styleUrls: ['./create-wod.component.scss']
 })
 export class CreateWodComponent implements OnInit {
+
 
   ngOnInit(): void {
   }
@@ -27,20 +29,23 @@ export class CreateWodComponent implements OnInit {
     },
     {
       type: 'text',
-      name: 'lastName',
-      label: 'Last Name',
+      name: 'wod',
+      label: 'wod',
       value: '',
       required: true,
     }
   ];
 
-  constructor() {
+  constructor(
+    private logger: NGXLogger
+  ) {
     this.form = new FormGroup({
       fields: new FormControl(JSON.stringify(this.fields))
-    })
+    });
     this.unsubcribe = this.form.valueChanges.subscribe((update) => {
       console.log(update);
-      this.fields = JSON.parse(update.fields);
+      // this.fields = JSON.parse(this.fields.toString());
+      console.log(this.fields);
     });
   }
 
@@ -49,9 +54,26 @@ export class CreateWodComponent implements OnInit {
 
   }
 
+  onSubmit(event) {
+    this.logger.log(event);
+  }
+
+  addInForm() {
+    this.fields.push({
+      type: 'text',
+      name: 'wod1',
+      label: 'wod1',
+      value: '',
+      required: true,
+    });
+    this.form.addControl('fields',new FormControl(JSON.stringify(this.fields)));
+  }
+
   getFields() {
     return this.fields;
   }
+
+
 
   ngDistroy() {
     this.unsubcribe();

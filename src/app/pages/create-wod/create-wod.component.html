@@ -6,8 +6,9 @@
 
 <div class="container">
 
-  <dynamic-form-builder [fields]="getFields()"></dynamic-form-builder>
+  <dynamic-form-builder [fields]="getFields()" (onSubmit)="onSubmit($event)"></dynamic-form-builder>
 
+  <button (click)="addInForm()">add</button>
 
 
 </div>
