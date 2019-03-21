@@ -17,7 +17,7 @@ export class CreateWodComponent implements OnInit {
 
 
   public form: FormGroup;
-  unsubcribe: any
+  unsubcribe: any;
 
   public fields: any[] = [
     {

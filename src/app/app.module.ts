@@ -65,18 +65,13 @@ export function getAuthServiceConfigs() {
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent,
-    LogListComponent,
-    JumbotronComponent,
     LoginPageComponent,
     PopUpComponent,
-    ListPageComponent,
     LogOutComponent,
     RegisterComponent,
     SkeletonComponent,
     LeaderboardComponent,
     SubmitScoreComponent,
-    CreateWodComponent
   ],
   imports: [
     SocialLoginModule,

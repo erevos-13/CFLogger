@@ -61,7 +61,8 @@ export class LoginPageComponent implements OnInit {
         this.logger.log(auth.user);
         this.storage.set(StorageValues.ACCESS_TOKEN,auth.user.refreshToken);
         this.storage.set(StorageValues.USER_ID, auth.user.uid);
-        this.router.navigate(['/home/log-list']).catch(() => {
+        this.router.navigate(['/home']).catch((err) => {
+          this.logger.error(err);
         });
 
 

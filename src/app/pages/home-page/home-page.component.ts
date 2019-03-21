@@ -30,6 +30,7 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('home page');
 
 
   }

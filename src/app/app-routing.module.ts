@@ -14,20 +14,21 @@ import {CreateWodComponent} from "./pages/create-wod/create-wod.component";
 const routes: Routes = [
   {path: '',  redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent,pathMatch: 'full'},
-  {path: 'log-list', component: LogListComponent,pathMatch: 'prefix'},
+  // {path: 'log-list', component: LogListComponent,pathMatch: 'prefix'},
   {path: 'leaderboard', component: LeaderboardComponent},
-
-  {
-    path: 'home', component: HomePageComponent, children:[
-      {path: 'list', component: ListPageComponent},
-      {path: 'log-list', component: LogListComponent}
-    ]
-  },
-  {path: 'register', redirectTo:'/register'},
-  {path: 'register', component: RegisterComponent},
-  // {path: 'submit-score',redirectTo:'/submit-score'},
-  {path: 'submit-score/:wodId', component: SubmitScoreComponent},
-  {path: 'create-wod',component:CreateWodComponent},
+  //
+  // {
+  //   path: 'home', component: HomePageComponent, children:[
+  //     {path: 'list', component: ListPageComponent},
+  //     {path: 'log-list', component: LogListComponent}
+  //   ]
+  // },
+  {path:'home', loadChildren:'./pages/home-page/home-page.module#HomePageModule'},
+  // {path: 'register', redirectTo:'/register'},
+  // {path: 'register', component: RegisterComponent},
+  // // {path: 'submit-score',redirectTo:'/submit-score'},
+  // {path: 'submit-score/:wodId', component: SubmitScoreComponent},
+  // {path: 'create-wod',component:CreateWodComponent},
 
 ];
 
