@@ -2,10 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {HomePageComponent} from './pages/home-page/home-page.component';
 import {AppRoutingModule} from './app-routing.module';
-import {LogListComponent} from './pages/home-page/log-list/log-list.component';
-import {JumbotronComponent} from './modules/jumbotron/jumbotron.component';
 import {
   NgbDropdownConfig,
   NgbModule, NgbProgressbarConfig
@@ -20,29 +17,25 @@ import {UsersService} from './servrices/users.service';
 import {RestApiModule} from './RestApi/restApi.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatDialogModule, MAT_DIALOG_DATA, MatInputModule} from '@angular/material';
+import {MatDialogModule,  MatInputModule} from '@angular/material';
 import {PopUpComponent} from './modules/pop-up/pop-up.component';
-import {ListPageComponent} from './pages/home-page/list-page/list-page.component';
 import {LogOutComponent} from "./modules/log-out/log-out.component";
 import {InitService} from "./servrices/init.service";
 import { StorageServiceModule } from 'ngx-webstorage-service';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
-import { SocialLoginModule,  AuthServiceConfig,  GoogleLoginProvider,  FacebookLoginProvider} from "angular-6-social-login";
+import { SocialLoginModule,  AuthServiceConfig,    FacebookLoginProvider} from "angular-6-social-login";
 import { RegisterComponent } from './pages/register/register.component'
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { SkeletonComponent } from './components/skeleton/skeleton.component';
-import {LeaderboardComponent} from "./pages/leaderboard/leaderboard.component";
 import {SpinnerModule} from "./components/spinner/spinner.module";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {intersectionObserverPreset, LazyLoadImageModule} from "ng-lazyload-image";
 import {SubmitScoreComponent} from "./pages/submit-score/submit-score.component";
 import {MatSelectModule} from '@angular/material/select';
-import {CreateWodComponent} from "./pages/create-wod/create-wod.component";
 import {DynamicFormBuilderModule} from "./components/dynamic-form-builder/dynamic-form-builder.module";
-import {DynamicFormBuilderComponent} from "./components/dynamic-form-builder/dynamic-form-builder.component";
 
 
 
@@ -70,8 +63,7 @@ export function getAuthServiceConfigs() {
     LogOutComponent,
     RegisterComponent,
     SkeletonComponent,
-    LeaderboardComponent,
-    SubmitScoreComponent,
+    SubmitScoreComponent
   ],
   imports: [
     SocialLoginModule,
@@ -122,7 +114,7 @@ export function getAuthServiceConfigs() {
   bootstrap: [AppComponent],
   entryComponents: [
     PopUpComponent,
-    LogOutComponent
+    LogOutComponent,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA ]
 })

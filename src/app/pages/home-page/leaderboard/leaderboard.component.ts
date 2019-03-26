@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {LogOutComponent} from "../../modules/log-out/log-out.component";
+import {LogOutComponent} from "../../../modules/log-out/log-out.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.css']
+  styleUrls: ['./leaderboard.component.scss']
 })
 export class LeaderboardComponent implements OnInit {
 

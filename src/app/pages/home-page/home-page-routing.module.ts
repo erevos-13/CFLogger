@@ -4,18 +4,16 @@ import {HomePageComponent} from "./home-page.component";
 
 const routes: Routes = [
   {
-    path: '',component:HomePageComponent,
+    path: '', component: HomePageComponent,
     children: [
       {
-        path: '', children: [
-          {path: '', loadChildren: './log-list/log-list.module#LogListModule'}
-        ]
+        path: 'log-list', loadChildren: './log-list/log-list.module#LogListModule'
       },
       {
-        path: 'list-page', children:
-          [
-            {path: '', loadChildren: './list-page/list-page.module#ListPageModule'}
-          ]
+        path: 'list', loadChildren: './list-page/list-page.module#ListPageModule'
+      },
+      {
+        path: 'leaderboard', loadChildren: './leaderboard/leaderboard.module#LeaderboardModule'
       }
     ]
   }
