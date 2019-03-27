@@ -1,0 +1,40 @@
+<!-- Content here -->
+<!--The content below is only a placeholder and can be replaced.-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand">CFLogger</a>
+  <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+  <!--<span class="navbar-toggler-icon"></span>-->
+  <!--</button>-->
+  <div ngbDropdown >
+    <button class="btn btn-outline-primary navbar-toggler" id="dropdownConfig" ngbDropdownToggle>Toggle</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownConfig">
+      <button class="dropdown-item" routerLink="log-list" routerLinkActive="active">Log List</button>
+      <button class="dropdown-item" routerLink="leaderboard" routerLinkActive="active">LeaderBoard</button>
+      <button class="dropdown-item" routerLink="/submit-score" routerLinkActive="active">submit-score</button>
+      <button class="dropdown-item" routerLink="/create-wod" routerLinkActive="active">Create Wod</button>
+      <button class="dropdown-item" (click)="onLogout()">Logout</button>
+    </div>
+  </div>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="log-list" routerLinkActive="active">Log List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="list" routerLinkActive="active">List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="leaderboard" routerLinkActive="active">Leaderboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="submit-score" routerLinkActive="active">submit-score</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  routerLink="create-wod" routerLinkActive="active">Create Wod</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="onLogout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>

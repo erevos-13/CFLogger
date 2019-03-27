@@ -55,7 +55,7 @@ export class CreateWodComponent implements OnInit {
   }
 
   onSubmit(event) {
-    this.logger.log(event);
+    console.log(event);
   }
 
   addInForm() {

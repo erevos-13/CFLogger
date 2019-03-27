@@ -36,6 +36,7 @@ import {intersectionObserverPreset, LazyLoadImageModule} from "ng-lazyload-image
 import {SubmitScoreComponent} from "./pages/submit-score/submit-score.component";
 import {MatSelectModule} from '@angular/material/select';
 import {DynamicFormBuilderModule} from "./components/dynamic-form-builder/dynamic-form-builder.module";
+import {CreateWodComponent} from "./pages/create-wod/create-wod.component";
 
 
 
@@ -63,7 +64,8 @@ export function getAuthServiceConfigs() {
     LogOutComponent,
     RegisterComponent,
     SkeletonComponent,
-    SubmitScoreComponent
+    SubmitScoreComponent,
+    CreateWodComponent
   ],
   imports: [
     SocialLoginModule,

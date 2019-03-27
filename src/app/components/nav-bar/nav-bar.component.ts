@@ -1,45 +1,38 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {NgbDropdownConfig, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {Router, Routes} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
 import {LogOutComponent} from "../../modules/log-out/log-out.component";
-import {UsersService} from "../../servrices/users.service";
-import {UserDTO} from "../../RestApi/user-api";
-
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  selector: 'app-nav-bar',
+  templateUrl: './nav-bar.component.html',
+  styleUrls: ['./nav-bar.component.css']
 })
-export class HomePageComponent implements OnInit {
-
-  private infoUser: UserDTO;
+export class NavBarComponent implements OnInit {
 
   constructor(
     private config: NgbDropdownConfig,
+    private translateSrv: TranslateService,
     private modalService: NgbModal,
     private router: Router,
-    private translateSrv: TranslateService,
-    private userSrv: UsersService
+
+
   ) {
     config.placement = "bottom-right";
     config.autoClose = false;
   }
 
   ngOnInit() {
-    console.log('home page');
-
-
   }
 
-
+  /**
+   *
+   */
   private onLogout() {
     const modalRef = this.modalService.open(LogOutComponent);
     modalRef.componentInstance.name = this.translateSrv.instant('LOGOUT_MESSAGE');
     modalRef.componentInstance.title = this.translateSrv.instant('LOGOUT_TITLE');
   }
 
-
-} // END CLASS
-
+}

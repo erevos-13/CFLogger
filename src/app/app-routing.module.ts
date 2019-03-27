@@ -2,6 +2,8 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Routes, RouterModule} from '@angular/router';
 import {LoginPageComponent} from './pages/login-page/login-page.component';
+import {SubmitScoreComponent} from "./pages/submit-score/submit-score.component";
+import {CreateWodComponent} from "./pages/create-wod/create-wod.component";
 
 
 const routes: Routes = [
@@ -16,7 +18,10 @@ const routes: Routes = [
   //   ]
   // },
   {path:'home', loadChildren:'./pages/home-page/home-page.module#HomePageModule'},
-  {path:'create-wod', loadChildren:'./pages/create-wod/create-wod.module#CreateWodModule'},
+  {path: 'home/create-wod',  redirectTo: '/create-wod', pathMatch: 'full'},
+  {path:'create-wod', component:CreateWodComponent},
+  {path:'home/submit-score', redirectTo:'/submit-score',pathMatch: 'full'},
+  {path: 'submit-score',component:SubmitScoreComponent}
   // {path: 'register', redirectTo:'/register'},
   // {path: 'register', component: RegisterComponent},
   // // {path: 'submit-score',redirectTo:'/submit-score'},
