@@ -9,5 +9,9 @@
   "REGISTER": "Register",
   "LANDING_INFO": "This is the info i need to add here for the user to see what level is.",
   "LOG_LIST_LEVEL": "Level:",
-  "CAP_TIME":"Cap time for wod:"
+  "CAP_TIME":"Cap time for wod:",
+  "NAME_WOD": "Name Of Wod:",
+  "DESCRIPTIONS": "Descriptions of the wod:",
+  "TYPE_OF_WOD": "Type of Wod:",
+  "ADD_WOD": "Add wod"
 }

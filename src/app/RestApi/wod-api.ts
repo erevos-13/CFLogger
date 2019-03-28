@@ -25,5 +25,9 @@ export class WodApi {
     return this.httpApi.get(`${environment.URL_DEV}/api/wods/${wodId}`);
   }
 
+  public addWod(wod: WodsDTO):Observable<WodsDTO | Object>{
+    return this.httpApi.post(`${environment.URL_DEV}/api/wods/wod`,wod);
+  }
+
 
 } // END CLASS

@@ -5,10 +5,33 @@
 </nav>
 
 <div class="container">
+<!--&lt;!&ndash;&ndash;&gt;-->
+  <!--<dynamic-form-builder [fields]="getFields()" (onSubmit)="onSubmit($event)"></dynamic-form-builder>-->
 
-  <dynamic-form-builder [fields]="getFields()" (onSubmit)="onSubmit($event)"></dynamic-form-builder>
+  <!--<button (click)="addInForm()">add</button>-->
+  <form class="col-12 col-sm-12 col-md-12 col-lg-12" [formGroup]="createWodFormGroup" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <mat-form-field class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <input matInput placeholder="{{ 'NAME_WOD' | translate }}" formControlName="nameWod">
+      </mat-form-field>
+      <mat-form-field class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <input matInput placeholder="{{ 'CAP_TIME' | translate }}" formControlName="capTime">
+      </mat-form-field>
 
-  <button (click)="addInForm()">add</button>
+      <mat-form-field  class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <textarea matInput placeholder="{{ 'DESCRIPTIONS' | translate }}" formControlName="descriptions"></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <mat-select placeholder="{{ 'TYPE_OF_WOD' | translate }}" formControlName="typeOfWod">
+          <mat-option *ngFor="let item of typesOfExercises" value="{{item.value}}">{{ item.text | uppercase }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 p-1 text-center">
+      <button [disabled]="createWodFormGroup.invalid" type="submit" class="btn btn-large" >{{'ADD_WOD' | translate}}</button>
+    </div>
+  </form>
 
 
 </div>

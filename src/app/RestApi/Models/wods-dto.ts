@@ -1,10 +1,10 @@
 export interface WodsDTO {
 
   title: string;
-  specs: any;
+  specs?: any;
   typeOfWod: number;
   capTime: string;
-  id: string;
-  resources: any[];
-
+  id?: string;
+  resource?: any[];
+  descriptions?: string;
 }

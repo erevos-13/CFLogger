@@ -1,8 +1,12 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FieldConfig} from "../../modules/dynamic-form/models/field-config.interface";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DynamicFormComponent} from "../../modules/dynamic-form/dynamic-form.component";
 import {NGXLogger} from "ngx-logger";
+import {WodsDTO} from "../../RestApi/Models/wods-dto";
+import {TranslateService} from "@ngx-translate/core";
+import {Subscription} from "rxjs";
+import {WodService} from "../../servrices/wod.service";
 
 @Component({
   selector: 'app-create-wod',
@@ -11,42 +15,43 @@ import {NGXLogger} from "ngx-logger";
 })
 export class CreateWodComponent implements OnInit {
 
-
-  ngOnInit(): void {
-  }
-
-
-  public form: FormGroup;
-  unsubcribe: any;
-
-  public fields: any[] = [
-    {
-      type: 'text',
-      name: 'firstName',
-      label: 'First Name',
-      value: '',
-      required: true,
-    },
-    {
-      type: 'text',
-      name: 'wod',
-      label: 'wod',
-      value: '',
-      required: true,
-    }
-  ];
+  protected createWodFormGroup: FormGroup;
+  private userCreateWod: WodsDTO;
+  protected typesOfExercises:ITypeOfExercises[] = [];
 
   constructor(
-    private logger: NGXLogger
+    private logger: NGXLogger,
+    private formBuilder: FormBuilder,
+    private translate: TranslateService,
+    private wodSrv: WodService
   ) {
-    this.form = new FormGroup({
-      fields: new FormControl(JSON.stringify(this.fields))
+  }
+
+  ngOnInit(): void {
+
+    // set the type of exerc.
+    this.typesOfExercises = [
+      {value:1,text:'Amrap'},
+      {value:2,text:'For time'},
+      {value:3,text:'Max Reps'}
+    ];
+
+    this.initValuesOfForm();
+    this.createWodFormGroup = this.formBuilder.group({
+      nameWod : [this.userCreateWod.title, Validators.required],
+      descriptions: [this.userCreateWod.descriptions, Validators.required],
+      typeOfWod: [this.userCreateWod.typeOfWod, Validators.required],
+      capTime: [this.userCreateWod.capTime, Validators.required],
     });
-    this.unsubcribe = this.form.valueChanges.subscribe((update) => {
-      console.log(update);
-      // this.fields = JSON.parse(this.fields.toString());
-      console.log(this.fields);
-    });
+  }
+
+  private initValuesOfForm() {
+    this.userCreateWod = {
+      capTime: null,
+      title: null,
+      typeOfWod: null,
+      descriptions: null
+    }
   }
 
   onUpload(e) {
@@ -54,31 +59,39 @@ export class CreateWodComponent implements OnInit {
 
   }
 
-  onSubmit(event) {
-    console.log(event);
+  onSubmit() {
+    //TODO: i need to add the form to send the wod.
+    if(this.createWodFormGroup.invalid){
+      return;
+    }
+    this.logger.info(this.createWodFormGroup);
+    const input_: WodsDTO = {
+      descriptions: this.createWodFormGroup.value.descriptions,
+      typeOfWod: this.createWodFormGroup.value.typeOfWod,
+      title: this.createWodFormGroup.value.nameWod,
+      capTime: this.createWodFormGroup.value.capTime
+    };
+    const  sub$_: Subscription = this.wodSrv.addWod(input_).subscribe(
+      (result) =>{
+        this.logger.log(result);
+      },error => {
+        this.logger.log(error);
+      }
+    );
   }
 
-  addInForm() {
-    this.fields.push({
-      type: 'text',
-      name: 'wod1',
-      label: 'wod1',
-      value: '',
-      required: true,
-    });
-    this.form.addControl('fields',new FormControl(JSON.stringify(this.fields)));
-  }
 
-  getFields() {
-    return this.fields;
-  }
+
 
 
 
   ngDistroy() {
-    this.unsubcribe();
   }
 
 
-
 } // END CLASS
+
+export interface ITypeOfExercises {
+  value: number;
+  text: string;
+}

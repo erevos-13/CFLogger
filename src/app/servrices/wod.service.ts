@@ -16,6 +16,9 @@ export class WodService {
     private resourcesSrv: ResourcesService
   ) { }
 
+  /**
+   *
+   */
   public getAllWods(): Observable<WodsDTO[] > {
     return Observable.create(observer => {
 
@@ -31,6 +34,10 @@ export class WodService {
   }
 
 
+  /**
+   *
+   * @param wodId
+   */
   getWodById(wodId: string):Observable<IWodById>{
     return Observable.create(observer => {
 
@@ -57,6 +64,33 @@ export class WodService {
         }
       )
 
+    });
+  }
+
+  /**
+   *
+   * @param wod_
+   */
+  addWod(wod_: WodsDTO): Observable<WodsDTO>{
+    return Observable.create(observer => {
+     const input_:WodsDTO = {
+       typeOfWod:wod_.typeOfWod,
+       capTime: wod_.capTime,
+       title: wod_.title,
+       descriptions: wod_.descriptions,
+       specs:wod_.specs
+     };
+     const  sub$_: Subscription = this.wodApi.addWod(input_).subscribe(
+        (result) => {
+          sub$_.unsubscribe();
+          this.logger.log(result);
+          observer.next(result);
+        },error => {
+          sub$_.unsubscribe();
+          this.logger.log(error);
+          observer.error(error);
+       }
+      );
     });
   }
 
